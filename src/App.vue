@@ -1,15 +1,7 @@
 <template>
 	<div id="app">
 		<div class="container">
-			<nav>
-				<router-link to="/video">비디오</router-link>
-				<router-link
-					v-if="this.$store.state.isLogined"
-					:to="`/user/${this.$store.state.user.id}`"
-					>사용자 정보</router-link
-				>
-				<router-link to="/user" v-else>로그인</router-link>
-			</nav>
+			<header-nav></header-nav>
 			<div class="view_wrapper">
 				<router-view />
 			</div>
@@ -17,7 +9,12 @@
 	</div>
 </template>
 
-
+<script>
+import HeaderNav from "./components/common/HeaderNav.vue";
+export default {
+	components: { HeaderNav },
+};
+</script>
 
 <style>
 #app {

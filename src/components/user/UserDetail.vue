@@ -8,9 +8,11 @@
 		</section>
 		<section class="user_like-list">
 			<small>팔로워</small>
+			<div v-if="!this.$store.state.user.follows[0]">없음</div>
 			<div
 				v-for="(followId, index) in this.$store.state.user.follows"
 				:key="index"
+				v-else
 			>
 				<router-link :to="`/follow/${followId.followId}`">{{
 					followId.followId
@@ -19,12 +21,21 @@
 		</section>
 		<section class="user_like-list">
 			<small>찜목록</small>
+			<div v-if="!this.$store.state.user.likes[0]">없음</div>
 			<div
+				v-else
 				v-for="(likeVideo, index) in this.$store.state.user.likes"
 				:key="index"
 			>
 				{{ likeVideo.youtubeId }}
 			</div>
+		</section>
+		<section>
+			<router-link to="/user/update">
+				<button>비밀번호 수정</button>
+			</router-link>
+			<button @click="deleteUser">회원탈퇴</button>
+			<button @click="userLogout">로그아웃</button>
 		</section>
 	</div>
 </template>
@@ -39,6 +50,14 @@ export default {
 			this.$store.dispatch("FETCH_LIKES", this.$store.state.user.id);
 			this.$store.dispatch("FETCH_FOLLOWS", this.$store.state.user.id);
 		}
+	},
+	methods: {
+		userLogout() {
+			this.$store.commit("DELETE_TOKEN");
+		},
+		deleteUser() {
+			this.$store.dispatch("FETCH_DELETE_USER", this.$store.state.user.id);
+		},
 	},
 };
 </script>

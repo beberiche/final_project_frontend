@@ -33,9 +33,13 @@ export default {
 	},
 	methods: {
 		userLogin() {
-			const userData = {
+			const user = {
 				id: this.id,
 				password: this.password,
+			};
+			const userData = {
+				user,
+				call: this.$route.query.call,
 			};
 			this.$store.dispatch("FETCH_LOGIN", userData);
 		},

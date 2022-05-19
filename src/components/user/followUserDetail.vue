@@ -25,7 +25,6 @@ export default {
 	created() {
 		this.$store.dispatch("FETCH_FOLLOW_USER", this.$route.params.id);
 		this.$store.dispatch("FETCH_FOLLOW_LIKES", this.$route.params.id);
-		console.log(this.$store.state.followUser.likes.length);
 	},
 };
 </script>
