@@ -1,8 +1,9 @@
 <template>
 	<div>
+		<h2>회원가입</h2>
 		<div>
 			<label>id : </label>
-			<input type="text" :value="user.id" />
+			<input type="text" v-model="user.id" />
 		</div>
 		<div>
 			<label>password : </label>
@@ -10,13 +11,13 @@
 		</div>
 		<div>
 			<label>name : </label>
-			<input type="text" :value="user.name" />
+			<input type="text" v-model="user.name" />
 		</div>
 		<div>
 			<label>age : </label>
-			<input type="text" :value="user.age" />
+			<input type="text" v-model="user.age" />
 		</div>
-		<button @click="updatePassword">비밀번호 수정</button>
+		<button @click="signUpUser">회원가입</button>
 		<button @click="cancel">취소</button>
 	</div>
 </template>
@@ -26,19 +27,19 @@ export default {
 	data() {
 		return {
 			user: {
-				id: this.$store.state.user.id,
-				name: this.$store.state.user.name,
-				age: this.$store.state.user.age,
+				id: "",
+				name: "",
+				age: "",
 				password: "",
 			},
 		};
 	},
 	methods: {
 		cancel() {
-			return this.$router.push(`/user/${this.$store.state.user.id}`);
+			this.$router.push("/");
 		},
-		updatePassword() {
-			return this.$store.dispatch("FETCH_UPDATE_PASSWORD", this.user);
+		signUpUser() {
+			this.$store.dispatch("FETCH_SIGN_UP_USER", this.user);
 		},
 	},
 };

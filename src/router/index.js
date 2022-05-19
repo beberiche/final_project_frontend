@@ -7,6 +7,7 @@ import UserDetail from "../components/user/UserDetail.vue";
 import followUserDetail from "../components/user/followUserDetail.vue";
 import UserUpdate from "../components/user/UserUpdate.vue";
 import UserLogin from "../components/user/UserLogin.vue";
+import UserSignUp from "../components/user/UserSignUp.vue";
 
 import store from "../store";
 
@@ -46,6 +47,11 @@ const routes = [
         path: "login",
         name: "userlogin",
         component: UserLogin,
+      },
+      {
+        path: "signup",
+        name: "signup",
+        component: UserSignUp,
       },
       {
         path: ":id",

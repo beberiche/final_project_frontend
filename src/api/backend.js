@@ -80,3 +80,15 @@ export async function fetchdeleteuser(userId) {
     console.log(e);
   }
 }
+
+export async function fetchsignupuser(userData) {
+  try {
+    return axios({
+      url: `/user/`,
+      method: "POST",
+      data: userData,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+}

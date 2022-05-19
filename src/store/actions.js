@@ -6,11 +6,14 @@ import {
   fetchfollowlikes,
   fetchupdatepassword,
   fetchdeleteuser,
+  fetchsignupuser,
 } from "../api/backend.js";
+import store from "./index.js";
 
 export default {
   async FETCH_LOGIN({ commit }, { user, call }) {
     try {
+      console.log(user);
       const { data } = await fetchlogin(user);
       commit("SET_TOKEN", { data, call });
       return data;
@@ -67,6 +70,20 @@ export default {
       const { data } = await fetchdeleteuser(userId);
       commit("DELETE_USER", data);
       alert("회원정보가 성공적으로 삭제되셨습니다.");
+    } catch (e) {
+      console.log(e);
+    }
+  },
+  async FETCH_SIGN_UP_USER(_, user) {
+    try {
+      await fetchsignupuser(user);
+      if (confirm("회원정보가 성공적으로 등록되었습니다.\n 로그인 하시겠습니까?")) {
+        const userData = {
+          user,
+          call: "",
+        };
+        store.dispatch("FETCH_LOGIN", userData);
+      }
     } catch (e) {
       console.log(e);
     }

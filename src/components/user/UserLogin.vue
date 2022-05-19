@@ -18,7 +18,12 @@
 			/>
 		</div>
 		<div>
-			<button @click="userLogin">클릭</button>
+			<button @click="userLogin">로그인</button>
+		</div>
+		<div>
+			<router-link to="/user/signup">
+				<button>회원가입</button>
+			</router-link>
 		</div>
 	</div>
 </template>

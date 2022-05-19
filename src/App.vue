@@ -2,9 +2,11 @@
 	<div id="app">
 		<div class="container">
 			<header-nav></header-nav>
-			<div class="view_wrapper">
+			<transition name="fade" mode="out-in">
+				<!-- <div class="view_wrapper"> -->
 				<router-view />
-			</div>
+				<!-- </div> -->
+			</transition>
 		</div>
 	</div>
 </template>
@@ -58,5 +60,15 @@ nav a.router-link-exact-active {
 
 .view_wrapper {
 	width: 100%;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+	transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+	opacity: 0;
 }
 </style>
