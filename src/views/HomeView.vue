@@ -1,8 +1,25 @@
 <template>
   <div class="home">
-    <!--<video-one  v-for = "video in videos" :key = "video.youtubeId" :video="video" :size="size"> </video-one> -->
     <div v-for="(video, index) in videos" :key="index">
-      <video-one :video="video" :size="size" />
+      <iframe
+        :width="size.width"
+        :height="size.height"
+        :src="'https://www.youtube.com/embed/' + video.youtubeId"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+      <div>
+        <h5>
+          <router-link :to="`/detail/${video.youtubeId}`">{{
+            video.title
+          }}</router-link>
+        </h5>
+        <h5 v-text="video.channelName" />
+        <h5 v-text="video.fitPartName" />
+        <h5 v-text="video.viewCnt" />
+      </div>
     </div>
 
     <div>
@@ -20,7 +37,7 @@
 <script>
 // @ is an alias to /src
 import { mapState } from "vuex";
-import VideoOne from "@/component/VideoOne.vue";
+//import VideoOne from "@/component/VideoOne.vue";
 export default {
   name: "VideoList",
   data() {
@@ -45,9 +62,12 @@ export default {
     search() {
       this.$store.dispatch("getList", this.searchdata);
     },
+    getCommentList(payload) {
+      this.$store.dispatch("getCommentList", payload);
+    },
   },
   components: {
-    VideoOne,
+    //    VideoOne,
   },
 };
 </script>
