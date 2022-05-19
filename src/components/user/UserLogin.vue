@@ -17,7 +17,9 @@
 				placeholder="비밀번호를 입력하세요"
 			/>
 		</div>
-		<button @click="userLogin">클릭</button>
+		<div>
+			<button @click="userLogin">클릭</button>
+		</div>
 	</div>
 </template>
 
@@ -36,6 +38,9 @@ export default {
 				password: this.password,
 			};
 			this.$store.dispatch("FETCH_LOGIN", userData);
+		},
+		userSignUp() {
+			this.$router.push("/user/signup");
 		},
 	},
 };

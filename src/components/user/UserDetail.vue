@@ -7,15 +7,23 @@
 			<div>나이 : {{ this.$store.state.user.age }}</div>
 		</section>
 		<section class="user_like-list">
-			<small>찜목록</small>
-			<div v-for="(likeVideo, index) in this.$store.state.likes" :key="index">
-				{{ likeVideo.youtubeId }}
+			<small>팔로워</small>
+			<div
+				v-for="(followId, index) in this.$store.state.user.follows"
+				:key="index"
+			>
+				<router-link :to="`/follow/${followId.followId}`">{{
+					followId.followId
+				}}</router-link>
 			</div>
 		</section>
 		<section class="user_like-list">
-			<small>팔로워</small>
-			<div v-for="(followId, index) in this.$store.state.follows" :key="index">
-				{{ followId.followId }}
+			<small>찜목록</small>
+			<div
+				v-for="(likeVideo, index) in this.$store.state.user.likes"
+				:key="index"
+			>
+				{{ likeVideo.youtubeId }}
 			</div>
 		</section>
 	</div>

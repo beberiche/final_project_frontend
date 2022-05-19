@@ -10,13 +10,20 @@ const REST_API = "http://localhost:9999/api/";
 export default new Vuex.Store({
   plugins: [createPersistedState()],
   state: {
+    isLogined: false,
     user: {
       id: "",
       name: "",
       age: "",
+      likes: {},
+      follows: {},
     },
-    likes: {},
-    follows: {},
+    followUser: {
+      id: "",
+      name: "",
+      age: "",
+      likes: {},
+    },
   },
   getters: {},
   mutations: {
@@ -28,14 +35,24 @@ export default new Vuex.Store({
         state.user.name = data.userData.name;
         state.user.age = data.userData.age;
         state.user.id = data.userData.id;
+        state.isLogined = true;
         router.push(`/user/${state.user.id}`);
       }
     },
     SET_LIKES(state, data) {
-      state.likes = data;
+      state.user.likes = data;
     },
     SET_FOLLOWS(state, data) {
-      state.follows = data;
+      state.user.follows = data;
+    },
+    SET_FOLLOW_USER(state, data) {
+      state.followUser.name = data.user.name;
+      state.followUser.id = data.user.id;
+      state.followUser.age = data.user.age;
+    },
+    SET_FOLLOW_LIKES(state, data) {
+      console.log(data);
+      state.followUser.likes = data;
     },
   },
   actions: {
@@ -61,6 +78,20 @@ export default new Vuex.Store({
       axios
         .get(REST_API_FOLLOW)
         .then(({ data }) => commit("SET_FOLLOWS", data))
+        .catch((e) => console.log(e));
+    },
+    FETCH_FOLLOW_USER({ commit }, userId) {
+      const REST_API_USER = REST_API + `/user/${userId}`;
+      axios
+        .get(REST_API_USER)
+        .then(({ data }) => commit("SET_FOLLOW_USER", data))
+        .catch((e) => console.log(e));
+    },
+    FETCH_FOLLOW_LIKES({ commit }, userId) {
+      const REST_API_LIKE = REST_API + `/like/${userId}`;
+      axios
+        .get(REST_API_LIKE)
+        .then(({ data }) => commit("SET_FOLLOW_LIKES", data))
         .catch((e) => console.log(e));
     },
   },

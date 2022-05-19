@@ -4,8 +4,8 @@
 			<nav>
 				<router-link to="/video">비디오</router-link>
 				<router-link
+					v-if="this.$store.state.isLogined"
 					:to="`/user/${this.$store.state.user.id}`"
-					v-if="this.$store.state.user.id"
 					>사용자 정보</router-link
 				>
 				<router-link to="/user" v-else>로그인</router-link>
@@ -25,7 +25,6 @@
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	color: #2c3e50;
-	border: 1px solid #2c3e50;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -36,8 +35,8 @@
 	display: inline-flex;
 	border: 1px solid #2c3e50;
 	width: 100%;
-	min-height: 400px;
-	padding: 0px;
+	min-height: 700px;
+	padding: 0 !important;
 }
 
 nav {
@@ -49,10 +48,15 @@ nav {
 nav a {
 	font-weight: bold;
 	color: #2c3e50;
+	text-decoration: none;
+	padding-left: 20px;
+	border-left: 3px solid #ffffff;
 }
 
 nav a.router-link-exact-active {
 	color: #42b983;
+	background-color: #f9f9fa;
+	border-left: 3px solid #2c3e50;
 }
 
 .view_wrapper {

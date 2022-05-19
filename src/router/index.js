@@ -4,6 +4,7 @@ import HomeView from "../views/HomeView.vue";
 import UserView from "../views/UserView.vue";
 
 import UserDetail from "../components/user/UserDetail.vue";
+import followUserDetail from "../components/user/followUserDetail.vue";
 
 Vue.use(VueRouter);
 
@@ -26,6 +27,10 @@ const routes = [
         component: UserDetail,
       },
     ],
+  },
+  {
+    path: "/follow/:id",
+    component: followUserDetail,
   },
 ];
 
