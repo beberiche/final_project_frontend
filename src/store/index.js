@@ -7,8 +7,9 @@ export default new Vuex.Store({
   state: {
     videos: [],
     video: {},
+    comment: {},
     comments: [],
-    subcomments: {},
+    subcomments: [],
   },
   getters: {},
   mutations: {
@@ -23,11 +24,64 @@ export default new Vuex.Store({
     },
     CREATCOMMENT(state, payload) {
       state.comments.push(payload);
-      router.push(`/detail/${payload.YoutubeId}`);
+      router.push(`/videoDetail/${payload.youtubeId}`);
     },
-    
+    GETCOMMIT(state, payload) {
+      state.comment = payload;
+    },
+    GETSUBCOMMENTS(state, payload) {
+      state.subcomments = payload;
+    },
   },
   actions: {
+    updateSubComment({ commit }, payload) {
+      console.log(payload);
+      axios({
+        url: `http://localhost:9999/api/subcomment/`,
+        method: "PUT",
+        data: payload,
+      }).then(() => {
+        commit;
+        router.push(`/commentDetail/${payload.commentNo}`);
+      });
+    },
+    deleteSubComment({ commit }, payload) {
+      console.log(payload);
+      axios({
+        url: `http://localhost:9999/api/subcomment/${payload[1]}`,
+        method: "DELETE",
+      }).then(() => {
+        commit;
+        router.push(`/commentDetail/${payload[0]}`);
+      });
+    },
+    createSubComment({ commit }, payload) {
+      console.log(payload);
+      axios({
+        url: `http://localhost:9999/api/subcomment/`,
+        method: "POST",
+        data: payload,
+      }).then(() => {
+        commit;
+        router.push(`/commentDetail/${payload.commentNo}`);
+      });
+    },
+    GetSubComments({ commit }, payload) {
+      axios({
+        url: `http://localhost:9999/api/subcomment/${payload}`,
+        method: "GET",
+      }).then((res) => {
+        commit("GETSUBCOMMENTS", res.data);
+      });
+    },
+    GetComment({ commit }, payload) {
+      axios({
+        url: `http://localhost:9999/api/comment/detail/${payload}`,
+        method: "GET",
+      }).then((res) => {
+        commit("GETCOMMIT", res.data);
+      });
+    },
     UadateComment({ commit }, payload) {
       axios({
         url: `http://localhost:9999/api/comment/`,
@@ -35,7 +89,7 @@ export default new Vuex.Store({
         data: payload,
       }).then(() => {
         commit;
-        router.push(`/detail/${payload.youtubeId}`);
+        router.push(`/videoDetail/${payload.youtubeId}`);
       });
     },
     DeleteComment({ commit }, payload1) {
@@ -45,7 +99,7 @@ export default new Vuex.Store({
       })
         .then(() => {
           commit;
-          router.push(`/detail/${payload1[1]}`);
+          router.push(`/videoDetail/${payload1[1]}`);
         })
         .catch(() => {});
     },
@@ -90,9 +144,9 @@ export default new Vuex.Store({
     },
     createComment({ commit }, newcomment) {
       axios({
-        url: "http://localhost:9999/api/comment/",
+        url: `http://localhost:9999/api/comment/`,
         method: "POST",
-        params: newcomment,
+        data: newcomment,
       })
         .then(() => {
           console.log(newcomment);

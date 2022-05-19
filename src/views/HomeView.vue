@@ -12,7 +12,7 @@
       ></iframe>
       <div>
         <h5>
-          <router-link :to="`/detail/${video.youtubeId}`">{{
+          <router-link :to="`/videoDetail/${video.youtubeId}`">{{
             video.title
           }}</router-link>
         </h5>
@@ -23,12 +23,12 @@
     </div>
 
     <div>
-      <select v-model="searchdata.key">
+      <select v-model="searchData.key">
         <option value="1">파트</option>
         <option value="2">제목</option>
         <option value="3">채널이름</option>
       </select>
-      <input type="text" v-model="searchdata.content" />
+      <input type="text" v-model="searchData.content" />
       <button @click="search">검색</button>
     </div>
   </div>
@@ -46,7 +46,7 @@ export default {
         width: 300,
         height: 300,
       },
-      searchdata: {
+      searchData: {
         key: "",
         content: "",
       },
@@ -66,8 +66,6 @@ export default {
       this.$store.dispatch("getCommentList", payload);
     },
   },
-  components: {
-    //    VideoOne,
-  },
+  components: {},
 };
 </script>

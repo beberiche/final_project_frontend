@@ -2,7 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import VideoDetail from "../component/VideoDetail";
-
+import CommentDetail from "../component/CommentDetail"
 /** 같은 페이지에서 같은 페이지로 $router.push 한 오률를 처리함 **/
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
@@ -29,10 +29,15 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
   },
   {
-    path: "/detail/:id",
-    name: "detail",
+    path: "/videoDetail/:id",
+    name: "videoDetail",
     component: VideoDetail,
   },
+  {
+    path : "/commentDetail/:id",
+    name: "commentDetail",
+    component:CommentDetail
+  }
 ];
 
 const router = new VueRouter({

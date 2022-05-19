@@ -39,7 +39,10 @@
         <button @click="userinform(comment.userId)">회원정보</button>
       </div>
       <a @click.prevent="follow(comment.userId)">{{ comment.userId }}</a
-      >|{{ comment.nickName }} | {{ comment.content }}
+      >|{{ comment.nickName }} |<router-link
+        :to="`/commentDetail/${comment.commentNo}`"
+        >{{ comment.content }}</router-link
+      >
       <button @click="deleteComment(comment.commentNo)">삭제</button>
       <button @click="updateform(comment.commentNo)">수정</button>
       <div :id="comment.commentNo" style="display: none">
@@ -125,10 +128,10 @@ export default {
       const pathName = new URL(document.location).pathname.split("/");
       const id = pathName[pathName.length - 1];
       let newComment = {
-        YoutubeId: id,
-        NickName: this.comment.nickName,
-        Content: this.comment.content,
-        UserId: this.comment.userId,
+        youtubeId: id,
+        nickName: this.comment.nickName,
+        content: this.comment.content,
+        userId: this.comment.userId,
       };
       this.$store.dispatch("createComment", newComment);
     },
