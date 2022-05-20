@@ -10,11 +10,19 @@
 			<small>찜목록</small>
 			<div v-if="!this.$store.state.followUser.likes[0]">없음</div>
 			<div
-				v-else
-				v-for="(likeVideo, index) in this.$store.state.followUser.likes"
+				v-for="(video, index) in this.$store.state.followUser.likes"
 				:key="index"
+				v-else
 			>
-				{{ likeVideo.youtubeId }}
+				<router-link :to="`/videoDetail/${video.youtubeId}`">
+					<img :src="`https://img.youtube.com/vi/${video.youtubeId}/0.jpg`"
+				/></router-link>
+				<div>
+					<h5 v-text="video.title" />
+					<h5 v-text="video.channelName" />
+					<h5 v-text="video.fitPartName" />
+					<h5 v-text="video.viewCnt" />
+				</div>
 			</div>
 		</section>
 	</div>
@@ -24,7 +32,7 @@
 export default {
 	created() {
 		this.$store.dispatch("FETCH_FOLLOW_USER", this.$route.params.id);
-		this.$store.dispatch("FETCH_FOLLOW_LIKES", this.$route.params.id);
+		this.$store.dispatch("FETCH_FOLLOW_LIKES_VIDEO", this.$route.params.id);
 	},
 };
 </script>

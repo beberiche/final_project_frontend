@@ -96,6 +96,30 @@ export async function fetchsignupuser(userData) {
   }
 }
 
+export async function fetchcreatelike(likeData) {
+  try {
+    return axios({
+      url: `/like/`,
+      method: "POST",
+      data: likeData,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export async function fetchdeletelike(likeData) {
+  try {
+    return axios({
+      url: `/like/`,
+      method: "DELETE",
+      data: likeData,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 // VIDEO ///////////////////////
 ////////////////////////////////
 ///////////////////////////////

@@ -21,6 +21,8 @@ import {
   getlist,
   createfollow,
   deletefollow,
+  fetchcreatelike,
+  fetchdeletelike,
 } from "../api/backend.js";
 import store from "./index.js";
 
@@ -41,6 +43,15 @@ export default {
     try {
       const { data } = await fetchlikesvideo(userId);
       commit("SET_LIKES_VIDEO", data);
+      return data;
+    } catch (e) {
+      console.log(e);
+    }
+  },
+  async FETCH_FOLLOW_LIKES_VIDEO({ commit }, userId) {
+    try {
+      const { data } = await fetchlikesvideo(userId);
+      commit("SET_FOLLOW_LIKES_VIDEO", data);
       return data;
     } catch (e) {
       console.log(e);
@@ -100,6 +111,26 @@ export default {
         };
         store.dispatch("FETCH_LOGIN", userData);
       }
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
+  async FETCH_INSERT_LIKE(_, likeData) {
+    try {
+      await fetchcreatelike(likeData);
+      // const { data } = await this.FETCH_LIKES_VIDEO(likeData.userId);
+      // commit("INSERT_LIKE", data);
+      router.push(`/user/${likeData.userId}`);
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
+  async FETCH_DELETE_LIKE(_, likeData) {
+    try {
+      await fetchdeletelike(likeData);
+      router.push(`/user/${likeData.userId}`);
     } catch (e) {
       console.log(e);
     }

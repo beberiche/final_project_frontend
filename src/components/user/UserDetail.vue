@@ -22,13 +22,6 @@
 		<section class="user_like-list">
 			<small>찜목록</small>
 			<div v-if="!this.$store.state.user.likes[0]">없음</div>
-			<!-- <div
-				v-else
-				v-for="(likeVideo, index) in this.$store.state.user.likes"
-				:key="index"
-			>
-				{{ likeVideo }}
-			</div> -->
 			<div
 				v-for="(video, index) in this.$store.state.user.likes"
 				:key="index"

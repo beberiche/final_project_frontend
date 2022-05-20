@@ -167,13 +167,19 @@ export default {
 		},
 		// 찜 등록
 		insertLike() {
-			// const data = {
-			// 	youtubeId: this.$route.params.id,
-			// 	userId: this.$store.user.id,
-			// };
-			// this.$store.dispatch("FETCH_INSER_LIKE");
+			const likeData = {
+				youtubeId: this.$route.params.id,
+				userId: this.$store.state.user.id,
+			};
+			this.$store.dispatch("FETCH_INSERT_LIKE", likeData);
 		},
-		deleteLike() {},
+		deleteLike() {
+			const likeData = {
+				youtubeId: this.$route.params.id,
+				userId: this.$store.state.user.id,
+			};
+			this.$store.dispatch("FETCH_DELETE_LIKE", likeData);
+		},
 	},
 	computed: {
 		...mapState(["comments", "video", "subcomments"]),
