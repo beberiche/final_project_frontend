@@ -18,7 +18,8 @@ export default {};
 <style scope>
 nav {
 	min-width: 250px;
-	max-height: 150px;
+
+	min-height: 200px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;

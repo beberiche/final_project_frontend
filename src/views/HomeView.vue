@@ -73,6 +73,7 @@ export default {
 
 <style scoped>
 .home {
+	min-height: 400px;
 	height: 70vh;
 	overflow: scroll;
 	overflow-x: hidden;

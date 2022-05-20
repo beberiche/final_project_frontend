@@ -1,7 +1,10 @@
 <template>
 	<div id="app">
 		<div class="container">
-			<header-nav></header-nav>
+			<div class="aside-container">
+				<header-nav></header-nav>
+				<header-nav></header-nav>
+			</div>
 			<div class="view_wrapper">
 				<transition name="fade" mode="out-in">
 					<router-view />
@@ -34,6 +37,14 @@ export default {
 .container {
 	display: flex;
 	padding: 0 !important;
+	height: 70vh;
+}
+
+.aside-container {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
 
 .view-wrapper {
