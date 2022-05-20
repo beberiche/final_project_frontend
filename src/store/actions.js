@@ -19,6 +19,8 @@ import {
   createcomment,
   getvideo,
   getlist,
+  createfollow,
+  deletefollow,
 } from "../api/backend.js";
 import store from "./index.js";
 
@@ -92,7 +94,9 @@ export default {
   async FETCH_SIGN_UP_USER(_, user) {
     try {
       await fetchsignupuser(user);
-      if (confirm("회원정보가 성공적으로 등록되었습니다.\n 로그인 하시겠습니까?")) {
+      if (
+        confirm("회원정보가 성공적으로 등록되었습니다.\n 로그인 하시겠습니까?")
+      ) {
         const userData = {
           user,
           call: "",
@@ -202,6 +206,22 @@ export default {
     try {
       await createcomment(commentData);
       router.push(`/videoDetail/${commentData.youtubeId}`);
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
+  async createFollow(_, commentData) {
+    try {
+      await createfollow(commentData);
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
+  async deleteFollow(_, commentData) {
+    try {
+      await deletefollow(commentData);
     } catch (e) {
       console.log(e);
     }
