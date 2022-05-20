@@ -28,12 +28,14 @@
       <hr />
     </div>
     <div v-for="(comment, index) in comments" :key="index">
-      <div :id="comment.userId" style="display: none">
-        <button @click="createFollow(comment.userId)">팔로우</button>
-        <button @click="deleteFollow(comment.userId)">팔로우 취소</button>
+      <div :id="index" style="display: none">
+        <button @click="createFollow([comment.userId, index])">팔로우</button>
+        <button @click="deleteFollow([comment.userId, index])">
+          팔로우 취소
+        </button>
         <router-link :to="`/follow/${comment.userId}`">회원정보</router-link>
       </div>
-      <a @click.prevent="follow(comment.userId)">{{ comment.userId }}</a
+      <a @click.prevent="follow(index)">{{ comment.userId }}</a
       >|{{ comment.nickName }} |<router-link
         :to="`/commentDetail/${comment.commentNo}`"
         >{{ comment.content }}</router-link
@@ -88,10 +90,10 @@ export default {
       let follow = {
         followNo: 0,
         userId: this.$store.state.user.id,
-        followId: payload,
+        followId: payload[0],
       };
       this.$store.dispatch("deleteFollow", follow);
-      this.follow(payload);
+      this.follow(payload[1]);
     },
     follow(payload) {
       if (document.getElementById(payload).style.display == "none") {
@@ -100,17 +102,14 @@ export default {
         document.getElementById(payload).style.display = "none";
       }
     },
-    userinform(payload) {
-      payload;
-    },
     createFollow(payload) {
       let newfollow = {
         followNo: 0,
         userId: this.$store.state.user.id,
-        followId: payload,
+        followId: payload[0],
       };
       this.$store.dispatch("createFollow", newfollow);
-      this.follow(payload);
+      this.follow(payload[1]);
     },
     updateComment(payload) {
       const pathName = new URL(document.location).pathname.split("/");

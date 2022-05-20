@@ -13,7 +13,7 @@ import UserSignUp from "../components/user/UserSignUp.vue";
 import VideoDetail from "../components/video/VideoDetail";
 import CommentDetail from "../components/comment/CommentDetail";
 
-// import store from "../store";
+import store from "../store";
 
 /** 같은 페이지에서 같은 페이지로 $router.push 한 오률를 처리함 **/
 const originalPush = VueRouter.prototype.push;
@@ -25,15 +25,19 @@ VueRouter.prototype.push = function push(location) {
 
 Vue.use(VueRouter);
 
-// const checkLogin = () => (from, to, next) => {
-//   if (store.state.isLogined) {
-//     next();
-//   } else {
-//     if (confirm("로그인이 필요한 서비스입니다.\n로그인 페이지로 이동하시겠습니까?")) {
-//       next(`/user/login?call=${from.fullPath}`);
-//     }
-//   }
-// };
+const checkLogin = () => (from, to, next) => {
+  if (store.state.isLogined) {
+    next();
+  } else {
+    if (
+      confirm(
+        "로그인이 필요한 서비스입니다.\n로그인 페이지로 이동하시겠습니까?"
+      )
+    ) {
+      next(`/user/login?call=${from.fullPath}`);
+    }
+  }
+};
 
 const routes = [
   {
@@ -45,12 +49,12 @@ const routes = [
     path: "/video",
     name: "video",
     component: HomeView,
-    // beforeEnter: checkLogin(),
   },
   {
     path: "/videoDetail/:id",
     name: "videoDetail",
     component: VideoDetail,
+    beforeEnter: checkLogin(),
   },
   {
     path: "/commentDetail/:id",
