@@ -1,3 +1,4 @@
+import router from "@/router/index.js";
 import {
   fetchlogin,
   fetchlikes,
@@ -7,10 +8,24 @@ import {
   fetchupdatepassword,
   fetchdeleteuser,
   fetchsignupuser,
+  updatesubcomment,
+  deletesubcomment,
+  createsubcomment,
+  getsubcomments,
+  getcommentlist,
+  getcomment,
+  updatecomment,
+  deletecomment,
+  createcomment,
+  getvideo,
+  getlist,
 } from "../api/backend.js";
 import store from "./index.js";
 
 export default {
+  // USER ///////////////////////
+  ///////////////////////////////
+  ///////////////////////////////
   async FETCH_LOGIN({ commit }, { user, call }) {
     try {
       console.log(user);
@@ -84,6 +99,109 @@ export default {
         };
         store.dispatch("FETCH_LOGIN", userData);
       }
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
+  // VIDEO ///////////////////////
+  ///////////////////////////////
+  ///////////////////////////////
+
+  async updateSubComment(_, subCommentData) {
+    try {
+      await updatesubcomment(subCommentData);
+      router.push(`/commentDetail/${subCommentData.commentNo}`);
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
+  async deleteSubComment(_, payload) {
+    try {
+      await deletesubcomment(payload);
+      router.push(`/commentDetail/${payload[0]}`);
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
+  async createSubComment(_, subCommentData) {
+    try {
+      await createsubcomment(subCommentData);
+      router.push(`/commentDetail/${subCommentData.commentNo}`);
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
+  async getSubComments({ commit }, subCommentId) {
+    try {
+      const { data } = await getsubcomments(subCommentId);
+      commit("GETSUBCOMMENTS", data);
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
+  async getComment({ commit }, commentId) {
+    try {
+      const { data } = await getcomment(commentId);
+      commit("GETCOMMENT", data);
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
+  async updateComment(_, commentData) {
+    try {
+      await updatecomment(commentData);
+      router.push(`/videoDetail/${commentData.youtubeId}`);
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
+  async deleteComment(_, payload) {
+    try {
+      await deletecomment(payload);
+      router.push(`/videoDetail/${payload[1]}`);
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
+  async getVideo({ commit }, youtubeId) {
+    try {
+      const { data } = await getvideo(youtubeId);
+      commit("setvideo", data);
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
+  async getList({ commit }, payload) {
+    try {
+      const { data } = await getlist(payload);
+      commit("setvideos", data);
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
+  async getCommentList({ commit }, youtubeId) {
+    try {
+      const { data } = await getcommentlist(youtubeId);
+      commit("setcomments", data);
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
+  async createComment(_, commentData) {
+    try {
+      await createcomment(commentData);
+      router.push(`/videoDetail/${commentData.youtubeId}`);
     } catch (e) {
       console.log(e);
     }

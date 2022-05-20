@@ -1,6 +1,6 @@
 <template>
 	<div class="hello">
-		<h1>비디오</h1>
+		<h1>초기화면</h1>
 	</div>
 </template>
 

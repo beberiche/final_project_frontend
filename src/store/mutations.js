@@ -4,6 +4,9 @@ import { createApi } from "@/api";
 const axios = createApi();
 
 export default {
+  // USER ///////////////////////
+  ///////////////////////////////
+  ///////////////////////////////
   SET_TOKEN(state, { data, call }) {
     console.log(data);
     console.log(call);
@@ -52,5 +55,29 @@ export default {
     state.isLogined = false;
     axios.defaults.headers["auth-token"] = "";
     router.push("/");
+  },
+
+  // VIDEO ///////////////////////
+  ///////////////////////////////
+  ///////////////////////////////
+
+  setvideos(state, payload) {
+    state.videos = payload;
+  },
+  setcomments(state, payload) {
+    state.comments = payload;
+  },
+  setvideo(state, payload) {
+    state.video = payload;
+  },
+  CREATCOMMENT(state, payload) {
+    state.comments.push(payload);
+    router.push(`/videoDetail/${payload.youtubeId}`);
+  },
+  GETCOMMENT(state, payload) {
+    state.comment = payload;
+  },
+  GETSUBCOMMENTS(state, payload) {
+    state.subcomments = payload;
   },
 };
