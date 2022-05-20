@@ -234,14 +234,25 @@ export async function createcomment(commentData) {
   }
 }
 
-// export async function createfollow(followData) {
-//   try {
-//     return axios({
-//       url: `http://localhost:9999/api/follow/`,
-//       method: "POST",
-//       data: followData,
-//     });
-//   } catch (e) {
-//     console.log(e);
-//   }
-// }
+export async function createfollow(followData) {
+  try {
+    return axios({
+      url: `http://localhost:9999/api/follow/`,
+      method: "POST",
+      data: followData,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export async function deletefollow(followData) {
+  try {
+    return axios({
+      url: `http://localhost:9999/api/follow/${followData.userId}/${followData.followId}`,
+      method: "DELETE",
+    });
+  } catch (e) {
+    console.log(e);
+  }
+}

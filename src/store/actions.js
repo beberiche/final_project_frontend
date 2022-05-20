@@ -19,6 +19,8 @@ import {
   createcomment,
   getvideo,
   getlist,
+  createfollow,
+  deletefollow,
 } from "../api/backend.js";
 import store from "./index.js";
 
@@ -206,12 +208,19 @@ export default {
     }
   },
 
-  // async dhthilasdjflsajdfli({commit}, followData) {
-  //   try{
-  //     const {data} = await createfollow(followData)
-  //     commit("djfioajdsf", data)
-  //   } catch(e) {
-  //     console.log(e)
-  //   }
-  // }
+  async createFollow(_, commentData) {
+    try {
+      await createfollow(commentData);
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
+  async deleteFollow(_, commentData) {
+    try {
+      await deletefollow(commentData);
+    } catch (e) {
+      console.log(e);
+    }
+  },
 };
