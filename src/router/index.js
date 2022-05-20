@@ -9,7 +9,18 @@ import UserUpdate from "../components/user/UserUpdate.vue";
 import UserLogin from "../components/user/UserLogin.vue";
 import UserSignUp from "../components/user/UserSignUp.vue";
 
+import VideoDetail from "../component/VideoDetail";
+import CommentDetail from "../component/CommentDetail";
+
 import store from "../store";
+
+/** 같은 페이지에서 같은 페이지로 $router.push 한 오률를 처리함 **/
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(() => {
+    return window.location.reload();
+  });
+};
 
 Vue.use(VueRouter);
 
@@ -29,6 +40,16 @@ const routes = [
     name: "video",
     component: HomeView,
     beforeEnter: checkLogin(),
+  },
+  {
+    path: "/videoDetail/:id",
+    name: "videoDetail",
+    component: VideoDetail,
+  },
+  {
+    path: "/commentDetail/:id",
+    name: "commentDetail",
+    component: CommentDetail,
   },
   {
     path: "/user",
