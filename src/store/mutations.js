@@ -34,7 +34,7 @@ export default {
     axios.defaults.headers["auth-token"] = "";
     router.push("/user/login");
   },
-  SET_LIKES(state, data) {
+  SET_LIKES_VIDEO(state, data) {
     state.user.likes = data;
   },
   SET_FOLLOWS(state, data) {

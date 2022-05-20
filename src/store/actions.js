@@ -1,7 +1,7 @@
 import router from "@/router/index.js";
 import {
   fetchlogin,
-  fetchlikes,
+  fetchlikesvideo,
   fetchfollows,
   fetchfollowuser,
   fetchfollowlikes,
@@ -28,7 +28,6 @@ export default {
   ///////////////////////////////
   async FETCH_LOGIN({ commit }, { user, call }) {
     try {
-      console.log(user);
       const { data } = await fetchlogin(user);
       commit("SET_TOKEN", { data, call });
       return data;
@@ -36,10 +35,10 @@ export default {
       console.log(e);
     }
   },
-  async FETCH_LIKES({ commit }, userId) {
+  async FETCH_LIKES_VIDEO({ commit }, userId) {
     try {
-      const { data } = await fetchlikes(userId);
-      commit("SET_LIKES", data);
+      const { data } = await fetchlikesvideo(userId);
+      commit("SET_LIKES_VIDEO", data);
       return data;
     } catch (e) {
       console.log(e);
@@ -206,4 +205,13 @@ export default {
       console.log(e);
     }
   },
+
+  // async dhthilasdjflsajdfli({commit}, followData) {
+  //   try{
+  //     const {data} = await createfollow(followData)
+  //     commit("djfioajdsf", data)
+  //   } catch(e) {
+  //     console.log(e)
+  //   }
+  // }
 };

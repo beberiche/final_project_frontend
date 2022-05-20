@@ -17,10 +17,10 @@ export async function fetchlogin(userData) {
   }
 }
 
-export async function fetchlikes(userId) {
+export async function fetchlikesvideo(userId) {
   try {
     return axios({
-      url: `/like/${userId}`,
+      url: `/like/videos/${userId}`,
       method: "GET",
     });
   } catch (e) {
@@ -99,6 +99,10 @@ export async function fetchsignupuser(userData) {
 // VIDEO ///////////////////////
 ////////////////////////////////
 ///////////////////////////////
+
+// export async function fetchinsertlike(youtubeId) {
+
+// }
 
 export async function updatesubcomment(subCommentData) {
   try {
@@ -229,3 +233,15 @@ export async function createcomment(commentData) {
     console.log(e);
   }
 }
+
+// export async function createfollow(followData) {
+//   try {
+//     return axios({
+//       url: `http://localhost:9999/api/follow/`,
+//       method: "POST",
+//       data: followData,
+//     });
+//   } catch (e) {
+//     console.log(e);
+//   }
+// }

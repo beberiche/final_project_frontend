@@ -9,7 +9,8 @@
 			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 			allowfullscreen
 		></iframe>
-
+		<button v-if="likedVideo" @click="deleteLike">찜취소</button>
+		<button v-else @click="insertLike">찜추가</button>
 		<div>
 			<input
 				type="text"
@@ -30,7 +31,6 @@
 				placeholder="내용"
 			/>
 			<button @click="createComment">등록</button>
-
 			<hr />
 		</div>
 		<div v-for="(comment, index) in comments" :key="index">
@@ -62,7 +62,6 @@
 				/>
 				<button @click="updateComment(comment.commentNo)">완료</button>
 			</div>
-
 			<hr />
 		</div>
 	</div>
@@ -87,6 +86,7 @@ export default {
 				userId: "",
 				commentNo: 0,
 			},
+			likedVideo: false,
 		};
 	},
 	methods: {
@@ -135,6 +135,26 @@ export default {
 			};
 			this.$store.dispatch("createComment", newComment);
 		},
+		// 해당 비디오가 로그인한 유저에게 찜 정보인지 아닌지 확인
+		checkLikeVideo() {
+			let check = false;
+			this.$store.state.user.likes.forEach((data) => {
+				if (data.youtubeId == this.$route.params.id) {
+					check = true;
+					return;
+				}
+			});
+			this.likedVideo = check;
+		},
+		// 찜 등록
+		insertLike() {
+			// const data = {
+			// 	youtubeId: this.$route.params.id,
+			// 	userId: this.$store.user.id,
+			// };
+			// this.$store.dispatch("FETCH_INSER_LIKE");
+		},
+		deleteLike() {},
 	},
 	computed: {
 		...mapState(["comments", "video", "subcomments"]),
@@ -144,6 +164,7 @@ export default {
 		const id = pathName[pathName.length - 1];
 		this.$store.dispatch("getVideo", id);
 		this.$store.dispatch("getCommentList", id);
+		this.checkLikeVideo();
 	},
 };
 </script>

@@ -22,12 +22,27 @@
 		<section class="user_like-list">
 			<small>찜목록</small>
 			<div v-if="!this.$store.state.user.likes[0]">없음</div>
-			<div
+			<!-- <div
 				v-else
 				v-for="(likeVideo, index) in this.$store.state.user.likes"
 				:key="index"
 			>
-				{{ likeVideo.youtubeId }}
+				{{ likeVideo }}
+			</div> -->
+			<div
+				v-for="(video, index) in this.$store.state.user.likes"
+				:key="index"
+				v-else
+			>
+				<router-link :to="`/videoDetail/${video.youtubeId}`">
+					<img :src="`https://img.youtube.com/vi/${video.youtubeId}/0.jpg`"
+				/></router-link>
+				<div>
+					<h5 v-text="video.title" />
+					<h5 v-text="video.channelName" />
+					<h5 v-text="video.fitPartName" />
+					<h5 v-text="video.viewCnt" />
+				</div>
 			</div>
 		</section>
 		<section>
@@ -47,7 +62,7 @@ export default {
 			sessionStorage.removeItem("auth-token");
 			this.$router.push("/user");
 		} else {
-			this.$store.dispatch("FETCH_LIKES", this.$store.state.user.id);
+			this.$store.dispatch("FETCH_LIKES_VIDEO", this.$store.state.user.id);
 			this.$store.dispatch("FETCH_FOLLOWS", this.$store.state.user.id);
 		}
 	},
