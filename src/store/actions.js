@@ -116,20 +116,21 @@ export default {
     }
   },
 
-  async FETCH_INSERT_LIKE(_, likeData) {
+  async FETCH_INSERT_LIKE({ commit }, videoData) {
     try {
-      await fetchcreatelike(likeData);
+      await fetchcreatelike({ userId: store.state.user.id, youtubeId: videoData.youtubeId });
       // const { data } = await this.FETCH_LIKES_VIDEO(likeData.userId);
-      // commit("INSERT_LIKE", data);
-      router.push(`/user/${likeData.userId}`);
+      commit("INSERT_LIKE", videoData);
+      router.push(`/user/${store.state.user.userId}`);
     } catch (e) {
       console.log(e);
     }
   },
 
-  async FETCH_DELETE_LIKE(_, likeData) {
+  async FETCH_DELETE_LIKE({ commit }, likeData) {
     try {
       await fetchdeletelike(likeData);
+      commit("DELETE_LIKE", likeData);
       router.push(`/user/${likeData.userId}`);
     } catch (e) {
       console.log(e);

@@ -59,6 +59,17 @@ export default {
     axios.defaults.headers["auth-token"] = "";
     router.push("/");
   },
+  INSERT_LIKE(state, data) {
+    state.user.likes.push(data);
+  },
+
+  DELETE_LIKE(state, data) {
+    state.user.likes.forEach((item, i) => {
+      if (item.youtubeId === data.youtubeId) {
+        state.user.likes.splice(i, 1);
+      }
+    });
+  },
 
   // INSERT_LIKE(state, data) {
   //   state.likes.push(data);

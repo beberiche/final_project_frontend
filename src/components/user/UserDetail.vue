@@ -51,13 +51,11 @@
 <script>
 export default {
 	created() {
-		if (!this.$store.state.user.id) {
-			sessionStorage.removeItem("auth-token");
-			this.$router.push("/user");
-		} else {
-			this.$store.dispatch("FETCH_LIKES_VIDEO", this.$store.state.user.id);
-			this.$store.dispatch("FETCH_FOLLOWS", this.$store.state.user.id);
-		}
+		// if (!this.$store.state.user.id) {
+		// 	sessionStorage.removeItem("auth-token");
+		// 	this.$router.push("/user");
+		// } else {
+		// }
 	},
 	methods: {
 		userLogout() {

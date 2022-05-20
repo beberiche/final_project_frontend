@@ -18,12 +18,12 @@
 				v-model="comment.nickName"
 				placeholder="닉네임"
 			/>
-			<input
+			<!-- <input
 				type="text"
 				id="userId"
 				v-model="comment.userId"
 				placeholder="userId"
-			/>
+			/> -->
 			<input
 				type="text"
 				id="userId"
@@ -39,32 +39,30 @@
 				<button @click="deleteFollow(comment.userId)">팔로우 취소</button>
 				<router-link :to="`/follow/${comment.userId}`">회원정보</router-link>
 			</div>
+			<a @click.prevent="follow(comment.userId)">{{ comment.userId }}</a
+			>|{{ comment.nickName }} |<router-link
+				:to="`/commentDetail/${comment.commentNo}`"
+				>{{ comment.content }}</router-link
+			>
+			<button @click="deleteComment(comment.commentNo)">삭제</button>
+			<button @click="updateform(comment.commentNo)">수정</button>
+			<div :id="comment.commentNo" style="display: none">
+				<input
+					type="text"
+					id="nickName"
+					v-model="updatecomment.nickName"
+					:placeholder="comment.nickName"
+				/>
+				<input
+					type="text"
+					id="userId"
+					v-model="updatecomment.content"
+					:placeholder="comment.content"
+				/>
+				<button @click="updateComment(comment.commentNo)">완료</button>
+			</div>
+			<hr />
 		</div>
-		<a @click.prevent="follow(comment.userId)">{{ comment.userId }}</a
-		>|{{ comment.nickName }} |<router-link
-			:to="`/commentDetail/${comment.commentNo}`"
-			>{{ comment.content }}</router-link
-		>
-		<button @click="deleteComment(comment.commentNo)">삭제</button>
-		<button @click="updateform(comment.commentNo)">수정</button>
-		<div :id="comment.commentNo" style="display: none">
-			<input
-				type="text"
-				id="nickName"
-				v-model="updatecomment.nickName"
-				:placeholder="comment.nickName"
-			/>
-
-			<input type="text" id="userId" :placeholder="comment.userId" readonly />
-			<input
-				type="text"
-				id="userId"
-				v-model="updatecomment.content"
-				:placeholder="comment.content"
-			/>
-			<button @click="updateComment(comment.commentNo)">완료</button>
-		</div>
-		<hr />
 	</div>
 </template>
 
@@ -150,7 +148,7 @@ export default {
 				youtubeId: id,
 				nickName: this.comment.nickName,
 				content: this.comment.content,
-				userId: this.comment.userId,
+				userId: this.$store.state.user.id,
 			};
 			this.$store.dispatch("createComment", newComment);
 		},
@@ -167,11 +165,11 @@ export default {
 		},
 		// 찜 등록
 		insertLike() {
-			const likeData = {
-				youtubeId: this.$route.params.id,
-				userId: this.$store.state.user.id,
-			};
-			this.$store.dispatch("FETCH_INSERT_LIKE", likeData);
+			// const likeData = {
+			// 	youtubeId: this.$route.params.id,
+			// 	userId: this.$store.state.user.id,
+			// };
+			this.$store.dispatch("FETCH_INSERT_LIKE", this.$store.state.video);
 		},
 		deleteLike() {
 			const likeData = {
@@ -194,4 +192,5 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+</style>

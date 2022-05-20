@@ -16,6 +16,7 @@ export default {
 <style scoped>
 .userView {
 	height: 80vh;
-	width: 100%;
+	min-width: 50vw;
+	background-color: #f9f9f9;
 }
 </style>

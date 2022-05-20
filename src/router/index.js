@@ -2,7 +2,6 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import UserView from "../views/UserView.vue";
-import HelloWorld from "../components/HelloWorld.vue";
 
 import UserDetail from "../components/user/UserDetail.vue";
 import followUserDetail from "../components/user/followUserDetail.vue";
@@ -36,13 +35,13 @@ const checkLogin = () => (from, to, next) => {
 };
 
 const routes = [
+  // {
+  //   path: "/",
+  //   name: "App",
+  //   component: App,
+  // },
   {
     path: "/",
-    name: "hello",
-    component: HelloWorld,
-  },
-  {
-    path: "/video",
     name: "video",
     component: HomeView,
   },
