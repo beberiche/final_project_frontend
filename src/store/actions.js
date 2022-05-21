@@ -1,7 +1,7 @@
 import router from "@/router/index.js";
 import {
   fetchlogin,
-  fetchlikes,
+  fetchlikesvideo,
   fetchfollows,
   fetchfollowuser,
   fetchfollowlikes,
@@ -21,6 +21,8 @@ import {
   getlist,
   createfollow,
   deletefollow,
+  fetchcreatelike,
+  fetchdeletelike,
 } from "../api/backend.js";
 import store from "./index.js";
 
@@ -30,7 +32,6 @@ export default {
   ///////////////////////////////
   async FETCH_LOGIN({ commit }, { user, call }) {
     try {
-      console.log(user);
       const { data } = await fetchlogin(user);
       commit("SET_TOKEN", { data, call });
       return data;
@@ -38,10 +39,19 @@ export default {
       console.log(e);
     }
   },
-  async FETCH_LIKES({ commit }, userId) {
+  async FETCH_LIKES_VIDEO({ commit }, userId) {
     try {
-      const { data } = await fetchlikes(userId);
-      commit("SET_LIKES", data);
+      const { data } = await fetchlikesvideo(userId);
+      commit("SET_LIKES_VIDEO", data);
+      return data;
+    } catch (e) {
+      console.log(e);
+    }
+  },
+  async FETCH_FOLLOW_LIKES_VIDEO({ commit }, userId) {
+    try {
+      const { data } = await fetchlikesvideo(userId);
+      commit("SET_FOLLOW_LIKES_VIDEO", data);
       return data;
     } catch (e) {
       console.log(e);
@@ -94,15 +104,34 @@ export default {
   async FETCH_SIGN_UP_USER(_, user) {
     try {
       await fetchsignupuser(user);
-      if (
-        confirm("회원정보가 성공적으로 등록되었습니다.\n 로그인 하시겠습니까?")
-      ) {
+      if (confirm("회원정보가 성공적으로 등록되었습니다.\n 로그인 하시겠습니까?")) {
         const userData = {
           user,
           call: "",
         };
         store.dispatch("FETCH_LOGIN", userData);
       }
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
+  async FETCH_INSERT_LIKE({ commit }, videoData) {
+    try {
+      await fetchcreatelike({ userId: store.state.user.id, youtubeId: videoData.youtubeId });
+      // const { data } = await this.FETCH_LIKES_VIDEO(likeData.userId);
+      commit("INSERT_LIKE", videoData);
+      router.push(`/user/${store.state.user.userId}`);
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
+  async FETCH_DELETE_LIKE({ commit }, likeData) {
+    try {
+      await fetchdeletelike(likeData);
+      commit("DELETE_LIKE", likeData);
+      router.push(`/user/${likeData.userId}`);
     } catch (e) {
       console.log(e);
     }

@@ -1,12 +1,15 @@
 <template>
 	<div id="app">
 		<div class="container">
-			<header-nav></header-nav>
-			<transition name="fade" mode="out-in">
-				<!-- <div class="view_wrapper"> -->
-				<router-view />
-				<!-- </div> -->
-			</transition>
+			<div class="aside-container">
+				<header-nav></header-nav>
+				<header-nav></header-nav>
+			</div>
+			<div class="view_wrapper">
+				<transition name="fade" mode="out-in">
+					<router-view />
+				</transition>
+			</div>
 		</div>
 	</div>
 </template>
@@ -19,51 +22,38 @@ export default {
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap");
 #app {
-	font-family: Avenir, Helvetica, Arial, sans-serif;
+	font-family: "Noto Sans KR", sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	color: #2c3e50;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	height: 100vh;
 }
 
 .container {
-	display: inline-flex;
-	border: 1px solid #2c3e50;
-	width: 100%;
-	min-height: 700px;
+	display: flex;
 	padding: 0 !important;
+	height: 70vh;
 }
 
-nav {
-	width: 20rem;
+.aside-container {
+	height: 100%;
 	display: flex;
 	flex-direction: column;
+	justify-content: space-between;
 }
 
-nav a {
-	font-weight: bold;
-	color: #2c3e50;
-	text-decoration: none;
-	padding-left: 20px;
-	border-left: 3px solid #ffffff;
-}
-
-nav a.router-link-exact-active {
-	color: #42b983;
-	background-color: #f9f9fa;
-	border-left: 3px solid #2c3e50;
-}
-
-.view_wrapper {
+.view-wrapper {
 	width: 100%;
 }
 
 .fade-enter-active,
 .fade-leave-active {
-	transition: opacity 0.5s ease;
+	transition: opacity 0.3s linear;
 }
 
 .fade-enter-from,

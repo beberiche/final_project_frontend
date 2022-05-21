@@ -7,8 +7,8 @@ export default {
     id: "",
     name: "",
     age: "",
-    likes: {},
-    follows: {},
+    likes: [],
+    follows: [],
   },
   followUser: {
     id: "",

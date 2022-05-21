@@ -2,7 +2,6 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import UserView from "../views/UserView.vue";
-import HelloWorld from "../components/HelloWorld.vue";
 
 import UserDetail from "../components/user/UserDetail.vue";
 import followUserDetail from "../components/user/followUserDetail.vue";
@@ -29,24 +28,21 @@ const checkLogin = () => (from, to, next) => {
   if (store.state.isLogined) {
     next();
   } else {
-    if (
-      confirm(
-        "로그인이 필요한 서비스입니다.\n로그인 페이지로 이동하시겠습니까?"
-      )
-    ) {
+    if (confirm("로그인이 필요한 서비스입니다.\n로그인 페이지로 이동하시겠습니까?")) {
+
       next(`/user/login?call=${from.fullPath}`);
     }
   }
 };
 
 const routes = [
+  // {
+  //   path: "/",
+  //   name: "App",
+  //   component: App,
+  // },
   {
     path: "/",
-    name: "hello",
-    component: HelloWorld,
-  },
-  {
-    path: "/video",
     name: "video",
     component: HomeView,
   },
@@ -60,6 +56,7 @@ const routes = [
     path: "/commentDetail/:id",
     name: "commentDetail",
     component: CommentDetail,
+    // beforeEnter: checkLogin(),
   },
   {
     path: "/user",

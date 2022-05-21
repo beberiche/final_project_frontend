@@ -17,10 +17,10 @@ export async function fetchlogin(userData) {
   }
 }
 
-export async function fetchlikes(userId) {
+export async function fetchlikesvideo(userId) {
   try {
     return axios({
-      url: `/like/${userId}`,
+      url: `/like/videos/${userId}`,
       method: "GET",
     });
   } catch (e) {
@@ -96,9 +96,37 @@ export async function fetchsignupuser(userData) {
   }
 }
 
+export async function fetchcreatelike(likeData) {
+  try {
+    return axios({
+      url: `/like/`,
+      method: "POST",
+      data: likeData,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export async function fetchdeletelike(likeData) {
+  try {
+    return axios({
+      url: `/like/`,
+      method: "DELETE",
+      data: likeData,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 // VIDEO ///////////////////////
 ////////////////////////////////
 ///////////////////////////////
+
+// export async function fetchinsertlike(youtubeId) {
+
+// }
 
 export async function updatesubcomment(subCommentData) {
   try {
