@@ -104,7 +104,9 @@ export default {
   async FETCH_SIGN_UP_USER(_, user) {
     try {
       await fetchsignupuser(user);
-      if (confirm("회원정보가 성공적으로 등록되었습니다.\n 로그인 하시겠습니까?")) {
+      if (
+        confirm("회원정보가 성공적으로 등록되었습니다.\n 로그인 하시겠습니까?")
+      ) {
         const userData = {
           user,
           call: "",
@@ -118,7 +120,10 @@ export default {
 
   async FETCH_INSERT_LIKE({ commit }, videoData) {
     try {
-      await fetchcreatelike({ userId: store.state.user.id, youtubeId: videoData.youtubeId });
+      await fetchcreatelike({
+        userId: store.state.user.id,
+        youtubeId: videoData.youtubeId,
+      });
       // const { data } = await this.FETCH_LIKES_VIDEO(likeData.userId);
       commit("INSERT_LIKE", videoData);
       router.push(`/user/${store.state.user.userId}`);
