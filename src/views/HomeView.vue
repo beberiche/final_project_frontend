@@ -143,7 +143,12 @@ span {
 }
 
 .videoSearch {
-	position: fixed;
-	top: 10%;
+	position: absolute;
+	top: 11%;
+}
+.videoSort {
+	position: absolute;
+	top: 11%;
+	right: 7%;
 }
 </style>
