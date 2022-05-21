@@ -21,6 +21,8 @@ export default {
   ///////////////////////////////
   ///////////////////////////////
   videos: [],
+  VideosSortByViewCnt: [],
+  VideosSortByChannelName: [],
   video: {},
   comment: {},
   comments: [],

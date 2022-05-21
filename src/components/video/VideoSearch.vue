@@ -5,7 +5,7 @@
 			<option value="2">제목</option>
 			<option value="3">채널이름</option>
 		</select>
-		<input type="text" v-model="searchData.content" @keyup.enter="search" />
+		<input v-model="searchData.content" @keyup.enter="search" />
 		<i class="fa-solid fa-magnifying-glass" @click="search"></i>
 		<!-- <button @click="search">검색</button> -->
 	</div>
