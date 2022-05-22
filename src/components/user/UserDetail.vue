@@ -21,6 +21,10 @@ import UserData from "./UserData.vue";
 import UserFollowList from "./UserFollowList.vue";
 import UserLikeList from "./UserLikeList.vue";
 export default {
+	created() {
+		this.$store.dispatch("FETCH_FOLLOWS", this.$store.state.user.id);
+		this.$store.dispatch("FETCH_LIKES_VIDEO", this.$store.state.user.id);
+	},
 	components: { UserData, UserFollowList, UserLikeList },
 	methods: {},
 };
