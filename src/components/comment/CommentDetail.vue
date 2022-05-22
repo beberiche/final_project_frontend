@@ -328,9 +328,4 @@ input:focus {
 .delete-btn {
 	margin-left: 3px;
 }
-
-.follow-btn {
-	position: absolute;
-	top: 11%;
-}
 </style>

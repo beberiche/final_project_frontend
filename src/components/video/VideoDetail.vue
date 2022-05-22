@@ -322,4 +322,18 @@ span {
 .delete-btn {
 	margin-left: 3px;
 }
+
+button {
+	border: none;
+	font-size: 0.8rem;
+	padding: 5px 10px;
+	border-radius: 5px 5px 5px 5px;
+	background-color: aliceblue;
+}
+
+button:hover {
+	background-color: #2c3e50;
+	color: #ffffff;
+	transition: all 0.3s linear;
+}
 </style>

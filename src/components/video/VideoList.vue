@@ -2,7 +2,7 @@
 	<div>
 		<div class="videoList" v-for="(video, index) in videos" :key="index">
 			<router-link
-				class="videoItem-wrapper"
+				class="video-item-wrapper"
 				:to="`/videoDetail/${video.youtubeId}`"
 			>
 				<video-img :youtubeId="video.youtubeId"></video-img>
@@ -39,7 +39,7 @@ export default {
 </script>
 
 <style scoped>
-.videoItem-wrapper {
+.video-item-wrapper {
 	display: flex;
 	text-decoration: none;
 	color: #000000;
@@ -47,11 +47,10 @@ export default {
 	opacity: 1;
 	border: 1px solid #8b9092;
 	margin-bottom: 20px;
-	border-radius: 0 10px 10px 0px;
 	margin-right: 20px;
 }
 
-.videoItem-wrapper:hover {
+.video-item-wrapper:hover {
 	opacity: 0.85;
 	transition: all 0.3s ease-in-out;
 	background: #f9f9f9;
