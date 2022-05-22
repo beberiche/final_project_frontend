@@ -1,14 +1,7 @@
 <template>
 	<div class="videoDetail">
 		<section class="videoSection">
-			<div class="video-like-btn">
-				<button v-if="likedVideo" @click="deleteLike">
-					<i class="fa-solid fa-user-large-slash"></i>
-				</button>
-				<button v-else @click="insertLike">
-					<i class="fa-solid fa-user-large"></i>
-				</button>
-			</div>
+			<video-like-btn></video-like-btn>
 			<div class="video-iframe">
 				<iframe
 					:width="size.width"
@@ -20,31 +13,14 @@
 					allowfullscreen
 				></iframe>
 			</div>
-			<div class="video-info">
-				<div class="videoList-context">
-					<div>
-						<h6 class="context-title" v-text="video.title" />
-						<h6 class="context-CN" v-text="video.channelName" />
-					</div>
-					<span>
-						파트 :
-						<i
-							class="fa-solid fa-shirt"
-							v-if="video.fitPartName === '복부'"
-						></i>
-						<i
-							class="fa-solid fa-child-reaching"
-							v-else-if="video.fitPartName === '전신'"
-						></i>
-						<i
-							class="fa-solid fa-shoe-prints"
-							v-else-if="video.fitPartName === '하체'"
-						></i>
-						<i class="fa-solid fa-dumbbell" v-else></i>
-					</span>
-					<span>조회수 : {{ video.viewCnt }}</span>
-				</div>
-			</div>
+			<video-info
+				:videoData="{
+					title: video.title,
+					channelName: video.channelName,
+					fitPartName: video.fitPartName,
+					viewCnt: video.viewCnt,
+				}"
+			></video-info>
 			<div class="comment_input-wrapper">
 				<div class="nickName-component">
 					<input
@@ -117,7 +93,13 @@
 
 <script>
 import { mapState } from "vuex";
+import VideoLikeBtn from "./VideoLikeBtn.vue";
+import VideoInfo from "./VideoInfo.vue";
 export default {
+	components: {
+		VideoLikeBtn,
+		VideoInfo,
+	},
 	data() {
 		return {
 			size: { width: 600, height: 400 },
@@ -255,27 +237,10 @@ export default {
 	display: flex;
 }
 
-.video-like-btn {
-	position: absolute;
-	top: 11%;
-}
 .videoSection {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-}
-button {
-	border: none;
-	font-size: 0.8rem;
-	padding: 5px 10px;
-	border-radius: 5px 5px 5px 5px;
-	background-color: aliceblue;
-}
-
-button:hover {
-	background-color: #2c3e50;
-	color: #ffffff;
-	transition: all 0.3s linear;
 }
 
 input {

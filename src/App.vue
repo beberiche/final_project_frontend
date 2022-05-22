@@ -1,15 +1,14 @@
 <template>
 	<div id="app">
 		<div class="container">
-			<div class="aside-container">
+			<section class="aside-container">
 				<header-nav></header-nav>
-				<header-nav></header-nav>
-			</div>
-			<div class="view_wrapper">
+			</section>
+			<section class="view_wrapper">
 				<transition name="fade" mode="out-in">
 					<router-view />
 				</transition>
-			</div>
+			</section>
 		</div>
 	</div>
 </template>
