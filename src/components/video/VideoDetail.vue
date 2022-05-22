@@ -1,240 +1,216 @@
 <template>
-  <div class="videoDetail">
-    <section class="videoSection">
-      <div class="video-like-btn">
-        <button v-if="likedVideo" @click="deleteLike">
-          <i class="fa-solid fa-user-large-slash"></i>
-        </button>
-        <button v-else @click="insertLike">
-          <i class="fa-solid fa-user-large"></i>
-        </button>
-      </div>
-      <div class="video-iframe">
-        <iframe
-          :width="size.width"
-          :height="size.height"
-          :src="`https://www.youtube.com/embed/` + video.youtubeId"
-          title="YouTube video player"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-        ></iframe>
-      </div>
-      <div class="video-info">
-        <div class="videoList-context">
-          <div>
-            <h6 class="context-title" v-text="video.title" />
-            <h6 class="context-CN" v-text="video.channelName" />
-          </div>
-          <span>
-            파트 :
-            <i
-              class="fa-solid fa-shirt"
-              v-if="video.fitPartName === '복부'"
-            ></i>
-            <i
-              class="fa-solid fa-child-reaching"
-              v-else-if="video.fitPartName === '전신'"
-            ></i>
-            <i
-              class="fa-solid fa-shoe-prints"
-              v-else-if="video.fitPartName === '하체'"
-            ></i>
-            <i class="fa-solid fa-dumbbell" v-else></i>
-          </span>
-          <span>조회수 : {{ video.viewCnt }}</span>
-        </div>
-      </div>
-      <div class="comment_input-wrapper">
-        <div class="nickName-component">
-          <input
-            type="text"
-            id="nickName"
-            v-model="comment.nickName"
-            placeholder="닉네임"
-          />
-          <button @click="createComment">등록</button>
-        </div>
-        <b-form-textarea
-          v-model="comment.content"
-          placeholder="내용작성"
-          id="content"
-          rows="3"
-        ></b-form-textarea>
-      </div>
-    </section>
-    <!-- <button >찜취소</button> -->
 
-    <section class="comment-section" v-if="comments.length > 0">
-      <div
-        class="comment-section-item"
-        v-for="(comment, index) in comments"
-        :key="index"
-      >
-        <div class="follow-btn" :id="comment.userId" style="display: none">
-          <button @click="createFollow(comment.userId)">
-            <i class="fa-solid fa-handshake"></i>
-          </button>
-          <button @click="deleteFollow(comment.userId)">
-            <i class="fa-solid fa-handshake-slash"></i>
-          </button>
-          <!-- <router-link :to="`/follow/${comment.userId}`">회원정보</router-link> -->
-        </div>
-        <!-- <div>
+	<div class="videoDetail">
+		<section class="video-section">
+			<video-like-btn></video-like-btn>
+			<div class="video-iframe">
+				<iframe
+					:width="size.width"
+					:height="size.height"
+					:src="`https://www.youtube.com/embed/` + video.youtubeId"
+					title="YouTube video player"
+					frameborder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowfullscreen
+				></iframe>
+			</div>
+			<video-info
+				:videoData="{
+					title: video.title,
+					channelName: video.channelName,
+					fitPartName: video.fitPartName,
+					viewCnt: video.viewCnt,
+				}"
+			></video-info>
+			<div class="comment_input-wrapper">
+				<div class="nickName-component">
+					<input
+						type="text"
+						id="nickName"
+						v-model="comment.nickName"
+						placeholder="닉네임"
+					/>
+					<button @click="createComment">등록</button>
+				</div>
+				<b-form-textarea
+					v-model="comment.content"
+					placeholder="내용작성"
+					id="content"
+					rows="3"
+				></b-form-textarea>
+			</div>
+		</section>
+		<!-- <button >찜취소</button> -->
+
+		<section class="comment-section" v-if="comments.length > 0">
+			<div
+				class="comment-section-item"
+				v-for="(comment, index) in comments"
+				:key="index"
+			>
+				<div class="follow-btn" :id="'follow' + index" style="display: none">
+					<button @click="createFollow(comment.userId)">
+						<i class="fa-solid fa-handshake"></i>
+					</button>
+					<button @click="deleteFollow(comment.userId)">
+						<i class="fa-solid fa-handshake-slash"></i>
+					</button>
+					<!-- <router-link :to="`/follow/${comment.userId}`">회원정보</router-link> -->
+				</div>
+				<!-- <div>
 					<a @click.prevent="follow(comment.userId)">{{ comment.userId }}</a>
 				</div> -->
-        <div @click.prevent="follow(comment.userId)">
-          {{ comment.nickName }}
-        </div>
-        <router-link :to="`/commentDetail/${comment.commentNo}`">{{
-          comment.content
-        }}</router-link>
-        <span class="comment-btn" :dataId="comment.userId">
-          <button @click="updateform(comment.commentNo)">수정</button>
-          <button class="delete-btn" @click="deleteComment(comment.commentNo)">
-            삭제
-          </button>
-        </span>
-        <div :id="comment.commentNo" style="display: none">
-          <input
-            type="text"
-            id="nickName"
-            v-model="updatecomment.nickName"
-            :placeholder="comment.nickName"
-          />
-          <input
-            type="text"
-            id="userId"
-            v-model="updatecomment.content"
-            :placeholder="comment.content"
-          />
-          <button @click="updateComment(comment.commentNo)">완료</button>
-        </div>
-      </div>
-    </section>
-  </div>
+				<div @click.prevent="follow('follow' + index)">
+					{{ comment.nickName }}
+				</div>
+				<router-link :to="`/commentDetail/${comment.commentNo}`">{{
+					comment.content
+				}}</router-link>
+				<!-- <comment-ud-btn :commentNo="comment.commentNo"></comment-ud-btn> -->
+				<comment-update-and-delete-btn
+					:commentNo="comment.commentNo"
+				></comment-update-and-delete-btn>
+
+				<div
+					class="comment-update"
+					:id="comment.commentNo"
+					style="display: none"
+				>
+					<input
+						type="text"
+						id="nickName"
+						v-model="updatecomment.nickName"
+						:placeholder="comment.nickName"
+					/>
+					<input
+						type="text"
+						id="userId"
+						v-model="updatecomment.content"
+						:placeholder="comment.content"
+					/>
+					<button @click="updateComment(comment.commentNo)">완료</button>
+				</div>
+			</div>
+		</section>
+	</div>
+
 </template>
 
 <script>
 import { mapState } from "vuex";
+import VideoLikeBtn from "./VideoLikeBtn.vue";
+import VideoInfo from "./VideoInfo.vue";
+import CommentUpdateAndDeleteBtn from "@/components/comment/CommentUpdateAndDeleteBtn.vue";
 export default {
-  data() {
-    return {
-      size: { width: 600, height: 400 },
-      comment: {
-        youtubeId: "",
-        nickName: "",
-        content: "",
-        userId: "",
-      },
-      updatecomment: {
-        youtubeId: "",
-        nickName: "",
-        content: "",
-        userId: "",
-        commentNo: 0,
-      },
-      likedVideo: false,
-    };
-  },
-  methods: {
-    follow(payload) {
-      // console.log(payload);
-      if (document.getElementById(payload).style.display == "none") {
-        document.getElementById(payload).style.display = "block";
-      } else {
-        document.getElementById(payload).style.display = "none";
-      }
-    },
-    createFollow(payload) {
-      let newfollow = {
-        followNo: 0,
-        userId: this.$store.state.user.id,
-        followId: payload[0],
-      };
-      if (newfollow.followId == newfollow.userId) {
-        alert("본인의 아이디는 팔로우할 수 없습니다.");
-      } else {
-        this.$store.dispatch("createFollow", newfollow);
-      }
-      this.follow(payload[1]);
-    },
-    deleteFollow(payload) {
-      let follow = {
-        followNo: 0,
-        userId: this.$store.state.user.id,
-        followId: payload,
-      };
-      this.$store.dispatch("deleteFollow", follow);
-      this.follow(payload);
-    },
-    userinform(payload) {
-      payload;
-    },
-    addfollow(payload) {
-      payload;
-    },
-    updateComment(payload) {
-      const pathName = new URL(document.location).pathname.split("/");
-      const id = pathName[pathName.length - 1];
-      this.updatecomment.youtubeId = id;
-      this.updatecomment.commentNo = payload;
-      console.log(payload);
-      this.$store.dispatch("updateComment", this.updatecomment);
-    },
-    updateform(commentno) {
-      if (document.getElementById(commentno).style.display == "none") {
-        document.getElementById(commentno).style.display = "block";
-      } else {
-        document.getElementById(commentno).style.display = "none";
-      }
-    },
-    deleteComment(commentid) {
-      const pathName = new URL(document.location).pathname.split("/");
-      const id = pathName[pathName.length - 1];
-      this.$store.dispatch("deleteComment", [commentid, id]);
-    },
-    createComment() {
-      const pathName = new URL(document.location).pathname.split("/");
-      const id = pathName[pathName.length - 1];
-      let newComment = {
-        youtubeId: id,
-        nickName: this.comment.nickName,
-        content: this.comment.content,
-        userId: this.$store.state.user.id,
-      };
-      this.$store.dispatch("createComment", newComment);
-    },
-    // 해당 비디오가 로그인한 유저에게 찜 정보인지 아닌지 확인
-    checkLikeVideo() {
-      let check = false;
-      this.$store.state.user.likes.forEach((data) => {
-        if (data.youtubeId == this.$route.params.id) {
-          check = true;
-          return;
-        }
-      });
-      this.likedVideo = check;
-    },
-    // 찜 등록
-    insertLike() {
-      // const likeData = {
-      // 	youtubeId: this.$route.params.id,
-      // 	userId: this.$store.state.user.id,
-      // };
-      this.$store.dispatch("FETCH_INSERT_LIKE", this.$store.state.video);
-    },
-    deleteLike() {
-      const likeData = {
-        youtubeId: this.$route.params.id,
-        userId: this.$store.state.user.id,
-      };
-      this.$store.dispatch("FETCH_DELETE_LIKE", likeData);
-    },
-  },
-  computed: {
-    ...mapState(["comments", "video", "subcomments"]),
-  },
+
+	components: {
+		VideoLikeBtn,
+		VideoInfo,
+		CommentUpdateAndDeleteBtn,
+	},
+	data() {
+		return {
+			size: { width: 600, height: 400 },
+			comment: {
+				youtubeId: "",
+				nickName: "",
+				content: "",
+				userId: "",
+			},
+			updatecomment: {
+				youtubeId: "",
+				nickName: "",
+				content: "",
+				userId: "",
+				commentNo: 0,
+			},
+			likedVideo: false,
+		};
+	},
+	methods: {
+		follow(payload) {
+			// console.log(payload);
+			if (document.getElementById(payload).style.display == "none") {
+				document.getElementById(payload).style.display = "block";
+			} else {
+				document.getElementById(payload).style.display = "none";
+			}
+		},
+		createFollow(payload) {
+			let newfollow = {
+				followNo: 0,
+				userId: this.$store.state.user.id,
+				followId: payload,
+			};
+			this.$store.dispatch("createFollow", newfollow);
+			this.follow(payload);
+		},
+		deleteFollow(payload) {
+			let follow = {
+				followNo: 0,
+				userId: this.$store.state.user.id,
+				followId: payload,
+			};
+			this.$store.dispatch("deleteFollow", follow);
+			this.follow(payload);
+		},
+		userinform(payload) {
+			payload;
+		},
+		addfollow(payload) {
+			payload;
+		},
+		updateComment(payload) {
+			const pathName = new URL(document.location).pathname.split("/");
+			const id = pathName[pathName.length - 1];
+			this.updatecomment.youtubeId = id;
+			this.updatecomment.commentNo = payload;
+			console.log(payload);
+			this.$store.dispatch("updateComment", this.updatecomment);
+		},
+
+		createComment() {
+			const pathName = new URL(document.location).pathname.split("/");
+			const id = pathName[pathName.length - 1];
+			let newComment = {
+				youtubeId: id,
+				nickName: this.comment.nickName,
+				content: this.comment.content,
+				userId: this.$store.state.user.id,
+			};
+			this.$store.dispatch("createComment", newComment);
+		},
+		// 해당 비디오가 로그인한 유저에게 찜 정보인지 아닌지 확인
+		checkLikeVideo() {
+			let check = false;
+			this.$store.state.user.likes.forEach((data) => {
+				if (data.youtubeId == this.$route.params.id) {
+					check = true;
+					return;
+				}
+			});
+			this.likedVideo = check;
+		},
+		// 찜 등록
+		insertLike() {
+			// const likeData = {
+			// 	youtubeId: this.$route.params.id,
+			// 	userId: this.$store.state.user.id,
+			// };
+			this.$store.dispatch("FETCH_INSERT_LIKE", this.$store.state.video);
+		},
+		deleteLike() {
+			const likeData = {
+				youtubeId: this.$route.params.id,
+				userId: this.$store.state.user.id,
+			};
+			this.$store.dispatch("FETCH_DELETE_LIKE", likeData);
+		},
+	},
+	computed: {
+		...mapState(["comments", "video", "subcomments"]),
+	},
+
 
   created() {
     const pathName = new URL(document.location).pathname.split("/");
@@ -259,28 +235,13 @@ export default {
   display: flex;
 }
 
-.video-like-btn {
-  position: absolute;
-  top: 11%;
-}
-.videoSection {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-button {
-  border: none;
-  font-size: 0.8rem;
-  padding: 5px 10px;
-  border-radius: 5px 5px 5px 5px;
-  background-color: aliceblue;
+
+.video-section {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
 
-button:hover {
-  background-color: #2c3e50;
-  color: #ffffff;
-  transition: all 0.3s linear;
-}
 
 input {
   height: 2rem;
@@ -366,5 +327,19 @@ span {
 }
 .delete-btn {
   margin-left: 3px;
+}
+
+button {
+	border: none;
+	font-size: 0.8rem;
+	padding: 5px 10px;
+	border-radius: 5px 5px 5px 5px;
+	background-color: aliceblue;
+}
+
+button:hover {
+	background-color: #2c3e50;
+	color: #ffffff;
+	transition: all 0.3s linear;
 }
 </style>

@@ -1,16 +1,16 @@
 <template>
 	<div>
 		<section>
-			<div @click.prevent="follow(comment.userId)">
-				<div class="follow-btn" :id="comment.userId" style="display: none">
-					<button @click="createFollow(comment.userId)">
-						<i class="fa-solid fa-handshake"></i>
-					</button>
-					<button @click="deleteFollow(comment.userId)">
-						<i class="fa-solid fa-handshake-slash"></i>
-					</button>
-					<!-- <router-link :to="`/follow/${comment.userId}`">회원정보</router-link> -->
-				</div>
+			<div class="follow-btn" :id="index" style="display: none">
+				<button @click="createFollow(comment.userId)">
+					<i class="fa-solid fa-handshake"></i>
+				</button>
+				<button @click="deleteFollow(comment.userId)">
+					<i class="fa-solid fa-handshake-slash"></i>
+				</button>
+				<!-- <router-link :to="`/follow/${comment.userId}`">회원정보</router-link> -->
+			</div>
+			<div @click.prevent="follow(index)">
 				<div class="comment-detail">
 					<h6 class="context-no">번호 : {{ comment.commentNo }}</h6>
 					<h6 class="context-title">닉네임 : {{ comment.nickName }}</h6>
