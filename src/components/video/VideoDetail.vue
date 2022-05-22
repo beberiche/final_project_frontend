@@ -1,6 +1,6 @@
 <template>
 	<div class="videoDetail">
-		<section class="videoSection">
+		<section class="video-section">
 			<video-like-btn></video-like-btn>
 			<div class="video-iframe">
 				<iframe
@@ -65,13 +65,16 @@
 				<router-link :to="`/commentDetail/${comment.commentNo}`">{{
 					comment.content
 				}}</router-link>
-				<span class="comment-btn" :dataId="comment.userId">
-					<button @click="updateform(comment.commentNo)">수정</button>
-					<button class="delete-btn" @click="deleteComment(comment.commentNo)">
-						삭제
-					</button>
-				</span>
-				<div :id="comment.commentNo" style="display: none">
+				<!-- <comment-ud-btn :commentNo="comment.commentNo"></comment-ud-btn> -->
+				<comment-update-and-delete-btn
+					:commentNo="comment.commentNo"
+				></comment-update-and-delete-btn>
+
+				<div
+					class="comment-update"
+					:id="comment.commentNo"
+					style="display: none"
+				>
 					<input
 						type="text"
 						id="nickName"
@@ -95,10 +98,12 @@
 import { mapState } from "vuex";
 import VideoLikeBtn from "./VideoLikeBtn.vue";
 import VideoInfo from "./VideoInfo.vue";
+import CommentUpdateAndDeleteBtn from "@/components/comment/CommentUpdateAndDeleteBtn.vue";
 export default {
 	components: {
 		VideoLikeBtn,
 		VideoInfo,
+		CommentUpdateAndDeleteBtn,
 	},
 	data() {
 		return {
@@ -160,18 +165,7 @@ export default {
 			console.log(payload);
 			this.$store.dispatch("updateComment", this.updatecomment);
 		},
-		updateform(commentno) {
-			if (document.getElementById(commentno).style.display == "none") {
-				document.getElementById(commentno).style.display = "block";
-			} else {
-				document.getElementById(commentno).style.display = "none";
-			}
-		},
-		deleteComment(commentid) {
-			const pathName = new URL(document.location).pathname.split("/");
-			const id = pathName[pathName.length - 1];
-			this.$store.dispatch("deleteComment", [commentid, id]);
-		},
+
 		createComment() {
 			const pathName = new URL(document.location).pathname.split("/");
 			const id = pathName[pathName.length - 1];
@@ -237,7 +231,7 @@ export default {
 	display: flex;
 }
 
-.videoSection {
+.video-section {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
