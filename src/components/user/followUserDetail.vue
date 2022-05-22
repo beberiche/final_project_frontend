@@ -1,35 +1,30 @@
 <template>
-	<div>
-		<section class="user-data">
-			<small>사용자 정보</small>
-			<div>이름 : {{ this.$store.state.followUser.name }}</div>
-			<div>아이디 : {{ this.$store.state.followUser.id }}</div>
-			<div>나이 : {{ this.$store.state.followUser.age }}</div>
-		</section>
-		<section class="user_like-list">
-			<small>찜목록</small>
-			<div v-if="!this.$store.state.followUser.likes[0]">없음</div>
-			<div
-				v-for="(video, index) in this.$store.state.followUser.likes"
-				:key="index"
-				v-else
-			>
-				<router-link :to="`/videoDetail/${video.youtubeId}`">
-					<img :src="`https://img.youtube.com/vi/${video.youtubeId}/0.jpg`"
-				/></router-link>
-				<div>
-					<h5 v-text="video.title" />
-					<h5 v-text="video.channelName" />
-					<h5 v-text="video.fitPartName" />
-					<h5 v-text="video.viewCnt" />
-				</div>
-			</div>
-		</section>
+	<div class="user-followed-detail">
+		<div class="flex-wrapper-1">
+			<user-data
+				:userData="{
+					id: this.$store.state.followUser.id,
+					name: this.$store.state.followUser.name,
+					age: this.$store.state.followUser.age,
+				}"
+			></user-data>
+		</div>
+		<div>
+			<user-like-list
+				:who="this.$store.state.followUser.likes"
+			></user-like-list>
+		</div>
 	</div>
 </template>
 
 <script>
+import UserData from "./UserData.vue";
+import UserLikeList from "./UserLikeList.vue";
 export default {
+	components: {
+		UserData,
+		UserLikeList,
+	},
 	created() {
 		this.$store.dispatch("FETCH_FOLLOW_USER", this.$route.params.id);
 		this.$store.dispatch("FETCH_FOLLOW_LIKES_VIDEO", this.$route.params.id);
@@ -37,5 +32,17 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.user-followed-detail {
+	min-width: 550px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.flex-wrapper-1 {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 50px;
+}
 </style>
