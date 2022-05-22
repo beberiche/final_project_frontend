@@ -5,36 +5,15 @@
 				class="videoItem-wrapper"
 				:to="`/videoDetail/${video.youtubeId}`"
 			>
-				<div>
-					<img
-						class="videoList-img"
-						:src="`https://img.youtube.com/vi/${video.youtubeId}/0.jpg`"
-					/>
-				</div>
-				<div class="video-info">
-					<div>
-						<h6 class="video-info-title" v-text="video.title" />
-						<h6 class="video-info-channel_name" v-text="video.channelName" />
-					</div>
-
-					<span class="video-info-part-icon">
-						파트 :
-						<i
-							class="fa-solid fa-shirt"
-							v-if="video.fitPartName === '복부'"
-						></i>
-						<i
-							class="fa-solid fa-child-reaching"
-							v-else-if="video.fitPartName === '전신'"
-						></i>
-						<i
-							class="fa-solid fa-shoe-prints"
-							v-else-if="video.fitPartName === '하체'"
-						></i>
-						<i class="fa-solid fa-dumbbell" v-else></i>
-					</span>
-					<span>조회수 : {{ video.viewCnt }}</span>
-				</div>
+				<video-img :youtubeId="video.youtubeId"></video-img>
+				<video-info
+					:videoData="{
+						title: video.title,
+						channelName: video.channelName,
+						fitPartName: video.fitPartName,
+						viewCnt: video.viewCnt,
+					}"
+				></video-info>
 			</router-link>
 		</div>
 	</div>
@@ -42,15 +21,13 @@
 
 <script>
 import { mapState } from "vuex";
+import VideoImg from "./VideoImg.vue";
+import VideoInfo from "./VideoInfo.vue";
 export default {
 	name: "VideoList",
-	data() {
-		return {
-			size: {
-				width: 300,
-				height: 300,
-			},
-		};
+	components: {
+		VideoImg,
+		VideoInfo,
 	},
 	computed: {
 		...mapState(["videos"]),
@@ -78,33 +55,5 @@ export default {
 	opacity: 0.85;
 	transition: all 0.3s ease-in-out;
 	background: #f9f9f9;
-}
-
-.video-info {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	padding: 0 1rem;
-}
-
-.video-info-title {
-	width: 35rem;
-	font-size: 1.2rem;
-	font-weight: 900;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-}
-
-.video-info-channel_name {
-	font-size: 0.9rem;
-}
-
-.video-info-part-icon {
-	font-size: 0.7rem;
-}
-
-.videoList-img {
-	width: 200px;
 }
 </style>
