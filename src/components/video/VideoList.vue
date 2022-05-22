@@ -1,6 +1,5 @@
 <template>
-	<div class="home">
-		<video-search class="videoSearch"></video-search>
+	<div>
 		<div class="videoList" v-for="(video, index) in videos" :key="index">
 			<router-link
 				class="videoItem-wrapper"
@@ -12,13 +11,13 @@
 						:src="`https://img.youtube.com/vi/${video.youtubeId}/0.jpg`"
 					/>
 				</div>
-				<div class="videoList-context">
+				<div class="video-info">
 					<div>
-						<h6 class="context-title" v-text="video.title" />
-						<h6 class="context-CN" v-text="video.channelName" />
+						<h6 class="video-info-title" v-text="video.title" />
+						<h6 class="video-info-channel_name" v-text="video.channelName" />
 					</div>
 
-					<span>
+					<span class="video-info-part-icon">
 						파트 :
 						<i
 							class="fa-solid fa-shirt"
@@ -42,12 +41,8 @@
 </template>
 
 <script>
-import VideoSearch from "@/components/video/VideoSearch.vue";
-// @ is an alias to /src
 import { mapState } from "vuex";
-//import VideoOne from "@/component/VideoOne.vue";
 export default {
-	components: { VideoSearch },
 	name: "VideoList",
 	data() {
 		return {
@@ -63,39 +58,10 @@ export default {
 	created() {
 		this.$store.dispatch("getList");
 	},
-	methods: {
-		getCommentList(payload) {
-			this.$store.dispatch("getCommentList", payload);
-		},
-	},
 };
 </script>
 
 <style scoped>
-.home {
-	min-height: 400px;
-	height: 70vh;
-	overflow: scroll;
-	overflow-x: hidden;
-	background-color: #ffffff;
-}
-
-.home::-webkit-scrollbar {
-	width: 7px;
-}
-/* 스크롤바의 width */
-.home::-webkit-scrollbar-track {
-	background-color: #f9f9f9;
-}
-/* 스크롤바의 전체 배경색 */
-.home::-webkit-scrollbar-thumb {
-	background: #2c3e50;
-}
-/* 스크롤바 색 */
-.home::-webkit-scrollbar-button {
-	display: none;
-}
-
 .videoItem-wrapper {
 	display: flex;
 	text-decoration: none;
@@ -114,14 +80,14 @@ export default {
 	background: #f9f9f9;
 }
 
-.videoList-context {
+.video-info {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	padding: 0 1rem;
 }
 
-.context-title {
+.video-info-title {
 	width: 35rem;
 	font-size: 1.2rem;
 	font-weight: 900;
@@ -130,25 +96,15 @@ export default {
 	text-overflow: ellipsis;
 }
 
-span {
-	font-size: 0.7rem;
+.video-info-channel_name {
+	font-size: 0.9rem;
 }
 
-.context-CN {
-	font-size: 0.9rem;
+.video-info-part-icon {
+	font-size: 0.7rem;
 }
 
 .videoList-img {
 	width: 200px;
-}
-
-.videoSearch {
-	position: absolute;
-	top: 11%;
-}
-.videoSort {
-	position: absolute;
-	top: 11%;
-	right: 7%;
 }
 </style>

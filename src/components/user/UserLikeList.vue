@@ -52,10 +52,4 @@ export default {};
 </script>
 
 <style scoped>
-.user_like-list {
-	overflow: scroll;
-	overflow-x: hidden;
-	max-height: 400px;
-	min-width: 40vw;
-}
 </style>

@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import HomeView from "../views/HomeView.vue";
+import VideoView from "../views/VideoView.vue";
 import UserView from "../views/UserView.vue";
 
 import UserDetail from "../components/user/UserDetail.vue";
@@ -42,8 +42,8 @@ const routes = [
   // },
   {
     path: "/",
-    name: "video",
-    component: HomeView,
+    name: "VideoView",
+    component: VideoView,
   },
   {
     path: "/videoDetail/:id",

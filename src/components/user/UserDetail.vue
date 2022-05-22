@@ -66,6 +66,12 @@ export default {
 </script>
 
 <style>
+.user_like-list {
+	overflow: scroll;
+	overflow-x: hidden;
+	max-height: 400px;
+	min-width: 40vw;
+}
 .userDetail {
 	display: flex;
 	flex-direction: column;

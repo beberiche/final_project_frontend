@@ -71,7 +71,7 @@
 				v-for="(comment, index) in comments"
 				:key="index"
 			>
-				<div class="follow-btn" :id="comment.userId" style="display: none">
+				<div class="follow-btn" :id="'follow' + index" style="display: none">
 					<button @click="createFollow(comment.userId)">
 						<i class="fa-solid fa-handshake"></i>
 					</button>
@@ -83,7 +83,7 @@
 				<!-- <div>
 					<a @click.prevent="follow(comment.userId)">{{ comment.userId }}</a>
 				</div> -->
-				<div @click.prevent="follow(comment.userId)">
+				<div @click.prevent="follow('follow' + index)">
 					{{ comment.nickName }}
 				</div>
 				<router-link :to="`/commentDetail/${comment.commentNo}`">{{
