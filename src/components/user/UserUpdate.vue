@@ -3,7 +3,7 @@
 		<h2>비밀번호 수정</h2>
 		<div>
 			<h6>id</h6>
-			<input id="id" type="text" :value="user.id" readonly />
+			<input id="id" type="text" :value="user.id" disabled />
 			<span>id</span>
 		</div>
 		<div>
@@ -13,12 +13,12 @@
 		</div>
 		<div>
 			<h6>name</h6>
-			<input id="name" type="text" :value="user.name" readonly />
+			<input id="name" type="text" :value="user.name" disabled />
 			<span>name</span>
 		</div>
 		<div>
 			<h6>age</h6>
-			<input id="age" type="text" :value="user.age" readonly />
+			<input id="age" type="text" :value="user.age" disabled />
 			<span>age</span>
 		</div>
 		<div>
@@ -96,6 +96,7 @@ span {
 	box-shadow: 3px 3px 5px -3px rgba(196, 196, 196, 0.83);
 	border-radius: 10px;
 }
+
 button {
 	border: none;
 	font-size: 0.8rem;
@@ -118,6 +119,7 @@ input {
 	margin-right: 5px;
 	background-color: transparent;
 	width: 100%;
+	z-index: 10;
 }
 input:focus {
 	outline: none;
