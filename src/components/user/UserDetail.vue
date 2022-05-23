@@ -20,10 +20,19 @@
 import UserData from "./UserData.vue";
 import UserFollowList from "./UserFollowList.vue";
 import UserLikeList from "./UserLikeList.vue";
+import Bus from "@/components/utils/Bus.js";
 export default {
 	created() {
-		this.$store.dispatch("FETCH_FOLLOWS", this.$store.state.user.id);
-		this.$store.dispatch("FETCH_LIKES_VIDEO", this.$store.state.user.id);
+		Bus.$emit("START_SPIN");
+		this.$store
+			.dispatch("FETCH_FOLLOWS", this.$store.state.user.id)
+			.then(() => {
+				this.$store
+					.dispatch("FETCH_LIKES_VIDEO", this.$store.state.user.id)
+					.then(() => {
+						Bus.$emit("END_SPIN");
+					});
+			});
 	},
 	components: { UserData, UserFollowList, UserLikeList },
 };

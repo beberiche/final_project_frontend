@@ -5,12 +5,14 @@
 			<div class="container">
 				<section class="aside-container">
 					<header-nav></header-nav>
+					<user-nav v-show="this.$store.state.user.id"></user-nav>
 				</section>
 				<section class="view_wrapper">
 					<transition name="fade" mode="out-in">
 						<router-view />
 					</transition>
 				</section>
+				<spinner :loading="loadingStatus"></spinner>
 			</div>
 		</div>
 		<!-- <footer-promotion></footer-promotion> -->
@@ -21,8 +23,32 @@
 import HeaderNav from "./components/common/HeaderNav.vue";
 // import FooterPromotion from "./components/promotion/FooterPromotion.vue";
 import HeaderPromotion from "./components/promotion/HeaderPromotion.vue";
+import UserNav from "./components/common/UserNav.vue";
+import Spinner from "./components/utils/SpinnerTool.vue";
+import Bus from "./components/utils/Bus.js";
 export default {
-	components: { HeaderNav, HeaderPromotion },
+	data() {
+		return {
+			loadingStatus: false,
+		};
+	},
+	methods: {
+		startSpin() {
+			this.loadingStatus = true;
+		},
+		endSpin() {
+			this.loadingStatus = false;
+		},
+	},
+	created() {
+		Bus.$on("START_SPIN", this.startSpin);
+		Bus.$on("END_SPIN", this.endSpin);
+	},
+	beforeDestroy() {
+		Bus.$off("START_SPIN", this.startSpin);
+		Bus.$off("END_SPIN", this.endSpin);
+	},
+	components: { HeaderNav, HeaderPromotion, UserNav, Spinner },
 };
 </script>
 
@@ -47,10 +73,9 @@ export default {
 }
 
 .aside-container {
-	height: 100%;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
+	gap: 30px;
 }
 
 .view-wrapper {

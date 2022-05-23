@@ -109,6 +109,7 @@ import { mapState } from "vuex";
 import VideoLikeBtn from "./VideoLikeBtn.vue";
 import VideoInfo from "./VideoInfo.vue";
 import CommentUpdateAndDeleteBtn from "@/components/comment/CommentUpdateAndDeleteBtn.vue";
+import Bus from "@/components/utils/Bus.js";
 export default {
 	components: {
 		VideoLikeBtn,
@@ -241,8 +242,13 @@ export default {
 	created() {
 		const pathName = new URL(document.location).pathname.split("/");
 		const id = pathName[pathName.length - 1];
-		this.$store.dispatch("getVideo", id);
-		this.$store.dispatch("getCommentList", id);
+		Bus.$emit("START_SPIN");
+		this.$store.dispatch("getVideo", id).then(() => {
+			this.$store.dispatch("getCommentList", id).then(() => {
+				Bus.$emit("END_SPIN");
+			});
+		});
+
 		this.checkLikeVideo();
 	},
 };

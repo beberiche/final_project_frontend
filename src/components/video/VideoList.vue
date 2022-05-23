@@ -23,6 +23,7 @@
 import { mapState } from "vuex";
 import VideoImg from "./VideoImg.vue";
 import VideoInfo from "./VideoInfo.vue";
+import Bus from "../utils/Bus.js";
 export default {
 	name: "VideoList",
 	components: {
@@ -33,7 +34,8 @@ export default {
 		...mapState(["videos"]),
 	},
 	created() {
-		this.$store.dispatch("getList");
+		Bus.$emit("START_SPIN");
+		this.$store.dispatch("getList").then(() => Bus.$emit("END_SPIN"));
 	},
 };
 </script>

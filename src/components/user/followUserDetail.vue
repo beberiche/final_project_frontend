@@ -20,14 +20,23 @@
 <script>
 import UserData from "./UserData.vue";
 import UserLikeList from "./UserLikeList.vue";
+import Bus from "@/components/utils/Bus.js";
 export default {
 	components: {
 		UserData,
 		UserLikeList,
 	},
 	created() {
-		this.$store.dispatch("FETCH_FOLLOW_USER", this.$route.params.id);
-		this.$store.dispatch("FETCH_FOLLOW_LIKES_VIDEO", this.$route.params.id);
+		Bus.$emit("START_SPIN");
+		this.$store
+			.dispatch("FETCH_FOLLOW_USER", this.$route.params.id)
+			.then(() => {
+				this.$store
+					.dispatch("FETCH_FOLLOW_LIKES_VIDEO", this.$route.params.id)
+					.then(() => {
+						Bus.$emit("END_SPIN");
+					});
+			});
 	},
 };
 </script>

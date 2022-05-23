@@ -7,7 +7,7 @@
 			>사용자 정보</router-link
 		>
 		<router-link to="/user/login" v-else>로그인</router-link>
-		<router-link to="#">러닝</router-link>
+		<!-- <router-link to="#">러닝</router-link> -->
 	</nav>
 </template>
 
@@ -18,7 +18,7 @@ export default {};
 <style scope>
 nav {
 	min-width: 250px;
-	min-height: 150px;
+	min-height: 100px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
