@@ -98,4 +98,10 @@ export default {
   GETSUBCOMMENTS(state, payload) {
     state.subcomments = payload;
   },
+  CREATEFOLLOW(state, payload) {
+    state.user.follows.push(payload);
+  },
+  DELETEFOLLOW(state, payload) {
+    state.user.follows.pop(payload);
+  },
 };
