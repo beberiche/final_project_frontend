@@ -245,17 +245,19 @@ export default {
     }
   },
 
-  async createFollow(_, commentData) {
+  async createFollow({ commit }, commentData) {
     try {
       await createfollow(commentData);
+      commit("CREATEFOLLOW", commentData);
     } catch (e) {
       console.log(e);
     }
   },
 
-  async deleteFollow(_, commentData) {
+  async deleteFollow({commit}, commentData) {
     try {
       await deletefollow(commentData);
+      commit("DELETEFOLLOW", commentData);
     } catch (e) {
       console.log(e);
     }
