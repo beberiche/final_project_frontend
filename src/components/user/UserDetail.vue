@@ -1,5 +1,5 @@
 <template>
-	<div class="userDetail">
+	<div class="user-detail">
 		<div class="flex-wrapper-1">
 			<user-data
 				:userData="{
@@ -11,7 +11,7 @@
 			<user-follow-list></user-follow-list>
 		</div>
 		<div>
-			<user-like-list></user-like-list>
+			<user-like-list :who="this.$store.state.user.likes"></user-like-list>
 		</div>
 	</div>
 </template>
@@ -21,13 +21,16 @@ import UserData from "./UserData.vue";
 import UserFollowList from "./UserFollowList.vue";
 import UserLikeList from "./UserLikeList.vue";
 export default {
+	created() {
+		this.$store.dispatch("FETCH_FOLLOWS", this.$store.state.user.id);
+		this.$store.dispatch("FETCH_LIKES_VIDEO", this.$store.state.user.id);
+	},
 	components: { UserData, UserFollowList, UserLikeList },
-	methods: {},
 };
 </script>
 
 <style>
-.userDetail {
+.user-detail {
 	min-width: 550px;
 	display: flex;
 	flex-direction: column;

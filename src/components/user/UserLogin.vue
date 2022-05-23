@@ -46,13 +46,7 @@ export default {
 				user,
 				call: this.$route.query.call,
 			};
-			this.$store.dispatch("FETCH_LOGIN", userData).then(() => {
-				this.$store
-					.dispatch("FETCH_LIKES_VIDEO", this.$store.state.user.id)
-					.then(() => {
-						this.$store.dispatch("FETCH_FOLLOWS", this.$store.state.user.id);
-					});
-			});
+			this.$store.dispatch("FETCH_LOGIN", userData);
 		},
 		userSignUp() {
 			this.$router.push("/user/signup");
