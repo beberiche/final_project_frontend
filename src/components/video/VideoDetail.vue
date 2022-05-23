@@ -255,9 +255,6 @@ export default {
     const pathName = new URL(document.location).pathname.split("/");
     this.id = pathName[pathName.length - 1];
     this.$store.dispatch("getVideo", this.id);
-    console.log(this.id);
-    console.log(1);
-
     this.$store.dispatch("getCommentList", this.id);
     this.checkLikeVideo();
   },

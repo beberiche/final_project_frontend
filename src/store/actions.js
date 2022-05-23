@@ -168,7 +168,8 @@ export default {
 
   async createSubComment({ commit }, subCommentData) {
     try {
-      await createsubcomment(subCommentData);
+      const { data } = await createsubcomment(subCommentData);
+      subCommentData.subNo = data;
       commit("CREATESUBCOMMENT", subCommentData);
       //router.push(`/commentDetail/${subCommentData.commentNo}`);
     } catch (e) {
@@ -244,7 +245,8 @@ export default {
 
   async createComment({ commit }, commentData) {
     try {
-      await createcomment(commentData);
+      const { data } = await createcomment(commentData);
+      commentData.commentNo = data;
       commit("CREATCOMMENT", commentData);
       //router.push(`/videoDetail/${commentData.youtubeId}`);
     } catch (e) {
