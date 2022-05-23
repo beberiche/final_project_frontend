@@ -6,6 +6,7 @@
 				<section class="aside-container">
 					<header-nav></header-nav>
 					<user-nav v-show="this.$store.state.user.id"></user-nav>
+					<logo-nav></logo-nav>
 				</section>
 				<section class="view_wrapper">
 					<transition name="fade" mode="out-in">
@@ -26,6 +27,7 @@ import HeaderPromotion from "./components/promotion/HeaderPromotion.vue";
 import UserNav from "./components/common/UserNav.vue";
 import Spinner from "./components/utils/SpinnerTool.vue";
 import Bus from "./components/utils/Bus.js";
+import LogoNav from "./components/common/logoNav.vue";
 export default {
 	data() {
 		return {
@@ -41,6 +43,7 @@ export default {
 		},
 	},
 	created() {
+		console.log("ddd");
 		Bus.$on("START_SPIN", this.startSpin);
 		Bus.$on("END_SPIN", this.endSpin);
 	},
@@ -48,7 +51,7 @@ export default {
 		Bus.$off("START_SPIN", this.startSpin);
 		Bus.$off("END_SPIN", this.endSpin);
 	},
-	components: { HeaderNav, HeaderPromotion, UserNav, Spinner },
+	components: { HeaderNav, HeaderPromotion, UserNav, Spinner, LogoNav },
 };
 </script>
 
@@ -89,6 +92,16 @@ export default {
 
 .fade-enter-from,
 .fade-leave-to {
+	opacity: 0;
+}
+
+.fade2-enter-active,
+.fade2-leave-active {
+	transition: opacity 1.5s linear;
+}
+
+.fade2-enter-from,
+.fade2-leave-to {
 	opacity: 0;
 }
 </style>

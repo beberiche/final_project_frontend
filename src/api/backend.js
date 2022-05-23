@@ -1,7 +1,10 @@
 import { createApi } from "@/api";
+// import router from "@/router";
 
 const axios = createApi();
-
+if (sessionStorage.getItem("access-token")) {
+  axios.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
+}
 // USER ///////////////////////
 ////////////////////////////////
 ///////////////////////////////

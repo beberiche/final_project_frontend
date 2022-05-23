@@ -1,7 +1,7 @@
 import router from "../router";
-import { createApi } from "@/api";
-
-const axios = createApi();
+// import { createApi } from "@/api";
+// import { axios } from "@/main";
+// const axios = createApi();
 
 export default {
   // USER ///////////////////////
@@ -18,8 +18,8 @@ export default {
       state.user.age = data.userData.age;
       state.user.id = data.userData.id;
       state.isLogined = true;
-      axios.defaults.headers["access-token"] = data["access-token"];
-      console.log(axios.defaults.headers);
+      // axios.defaults.headers["access-token"] = data["access-token"];
+      // console.log(axios.defaults.headers);
 
       if (call) {
         router.push(call);
@@ -33,8 +33,8 @@ export default {
     state.user.age = "";
     state.user.id = "";
     state.isLogined = false;
-    console.log(axios.defaults.headers);
-    axios.defaults.headers["access-token"] = "";
+    // console.log(axios.defaults.headers);
+    // axios.defaults.headers.common["access-token"] = "";
     router.push("/user/login");
   },
   SET_LIKES_VIDEO(state, data) {
