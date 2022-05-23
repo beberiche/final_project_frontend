@@ -48,6 +48,7 @@ select {
 
 .selectAnimation {
 	animation: borderAnimation 0.3s linear;
+	animation-iteration-count: 2;
 }
 
 @keyframes borderAnimation {

@@ -65,8 +65,9 @@
         <!-- <div>
 					<a @click.prevent="follow(comment.userId)">{{ comment.userId }}</a>
 				</div> -->
-        <div @click.prevent="follow('follow' + index)">
-          {{ comment.nickName }} | {{ comment.userId }}
+        <div class="comment-info" @click.prevent="follow('follow' + index)">
+          <h6 class="comment-nick_name">{{ comment.nickName }}</h6>
+          <span class="comment-user_id">id : {{ comment.userId }}</span>
         </div>
         <router-link :to="`/commentDetail/${comment.commentNo}`">{{
           comment.content
@@ -205,6 +206,7 @@ export default {
       this.comment.content = "";
       this.$store.dispatch("createComment", newComment);
     },
+
     // 해당 비디오가 로그인한 유저에게 찜 정보인지 아닌지 확인
     checkLikeVideo() {
       let check = false;
@@ -216,7 +218,9 @@ export default {
       });
       this.likedVideo = check;
     },
+
     // 찜 등록
+
     insertLike() {
       // const likeData = {
       // 	youtubeId: this.$route.params.id,
@@ -231,17 +235,17 @@ export default {
       };
       this.$store.dispatch("FETCH_DELETE_LIKE", likeData);
     },
-  },
-  computed: {
-    ...mapState(["comments", "video", "subcomments", "user"]),
-  },
+    computed: {
+      ...mapState(["comments", "video", "subcomments", "user"]),
+    },
 
-  created() {
-    const pathName = new URL(document.location).pathname.split("/");
-    const id = pathName[pathName.length - 1];
-    this.$store.dispatch("getVideo", id);
-    this.$store.dispatch("getCommentList", id);
-    this.checkLikeVideo();
+    created() {
+      const pathName = new URL(document.location).pathname.split("/");
+      const id = pathName[pathName.length - 1];
+      this.$store.dispatch("getVideo", id);
+      this.$store.dispatch("getCommentList", id);
+      this.checkLikeVideo();
+    },
   },
 };
 </script>
@@ -282,6 +286,16 @@ input:focus {
   box-shadow: none;
   border: 1px solid #2c3e50;
   transition: all 0.3s linear;
+}
+
+.comment-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.comment-user_id {
+  color: #2c3e50;
+  margin-right: 15px;
 }
 
 #nickName {
