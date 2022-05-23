@@ -143,19 +143,22 @@ export default {
   // VIDEO ///////////////////////
   ///////////////////////////////
   ///////////////////////////////
-  async updateSubComment(_, subCommentData) {
+
+  async updateSubComment({ commit }, subCommentData) {
     try {
-      await updatesubcomment(subCommentData);
-      router.push(`/commentDetail/${subCommentData.commentNo}`);
+      await updatesubcomment(subCommentData[0]);
+      commit("UPDATESUBCOMMENT", subCommentData);
+      //router.push(`/commentDetail/${subCommentData.commentNo}`);
     } catch (e) {
       console.log(e);
     }
   },
 
-  async deleteSubComment(_, payload) {
+  async deleteSubComment({ commit }, payload) {
     try {
-      await deletesubcomment(payload);
-      router.push(`/commentDetail/${payload[0]}`);
+      await deletesubcomment(payload[0]);
+      //router.push(`/commentDetail/${payload[0]}`);
+      commit("DELETESUBCOMMENT", payload[1]);
     } catch (e) {
       console.log(e);
     }
@@ -163,7 +166,8 @@ export default {
 
   async createSubComment({ commit }, subCommentData) {
     try {
-      await createsubcomment(subCommentData);
+      const { data } = await createsubcomment(subCommentData);
+      subCommentData.subNo = data;
       commit("CREATESUBCOMMENT", subCommentData);
       //router.push(`/commentDetail/${subCommentData.commentNo}`);
     } catch (e) {
@@ -189,19 +193,22 @@ export default {
     }
   },
 
-  async updateComment(_, commentData) {
+  async updateComment({ commit }, commentData) {
     try {
-      await updatecomment(commentData);
-      router.push(`/videoDetail/${commentData.youtubeId}`);
+      await updatecomment(commentData[0]);
+      //router.push(`/videoDetail/${commentData.youtubeId}`);
+      commit("UPDATECOMMENT", commentData);
     } catch (e) {
       console.log(e);
     }
   },
 
-  async deleteComment(_, payload) {
+  async deleteComment({ commit }, payload) {
     try {
-      await deletecomment(payload);
-      router.push(`/videoDetail/${payload[1]}`);
+      console.log(payload[0]);
+      await deletecomment(payload[0]);
+      commit("DELETECOMMENT", payload[1]);
+      //router.push(`/videoDetail/${payload[1]}`);
     } catch (e) {
       console.log(e);
     }
@@ -236,7 +243,8 @@ export default {
 
   async createComment({ commit }, commentData) {
     try {
-      await createcomment(commentData);
+      const { data } = await createcomment(commentData);
+      commentData.commentNo = data;
       commit("CREATCOMMENT", commentData);
       //router.push(`/videoDetail/${commentData.youtubeId}`);
     } catch (e) {

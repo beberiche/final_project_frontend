@@ -143,7 +143,7 @@ export async function updatesubcomment(subCommentData) {
 export async function deletesubcomment(payload) {
   try {
     return axios({
-      url: `http://localhost:9999/api/subcomment/${payload[1]}`,
+      url: `http://localhost:9999/api/subcomment/${payload}`,
       method: "DELETE",
     });
   } catch (e) {
@@ -200,7 +200,7 @@ export async function updatecomment(commentData) {
 export async function deletecomment(payload) {
   try {
     return axios({
-      url: `http://localhost:9999/api/comment/${payload[0]}`,
+      url: `http://localhost:9999/api/comment/${payload}`,
       method: "DELETE",
     });
   } catch (e) {

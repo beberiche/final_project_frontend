@@ -65,15 +65,14 @@
 				<!-- <div>
 					<a @click.prevent="follow(comment.userId)">{{ comment.userId }}</a>
 				</div> -->
+
 				<div class="comment-info" @click.prevent="follow('follow' + index)">
 					<h6 class="comment-nick_name">{{ comment.nickName }}</h6>
 					<span class="comment-user_id">id : {{ comment.userId }}</span>
 				</div>
-				<router-link
-					class="comment-user_comment"
-					:to="`/commentDetail/${comment.commentNo}`"
-					>{{ comment.content }}</router-link
-				>
+				<router-link :to="`/commentDetail/${comment.commentNo}`">{{
+					comment.content
+				}}</router-link>
 				<!-- <comment-ud-btn :commentNo="comment.commentNo"></comment-ud-btn> -->
 				<comment-update-and-delete-btn
 					:commentNo="comment.commentNo"
@@ -109,7 +108,6 @@ import { mapState } from "vuex";
 import VideoLikeBtn from "./VideoLikeBtn.vue";
 import VideoInfo from "./VideoInfo.vue";
 import CommentUpdateAndDeleteBtn from "@/components/comment/CommentUpdateAndDeleteBtn.vue";
-import Bus from "@/components/utils/Bus.js";
 export default {
 	components: {
 		VideoLikeBtn,
@@ -118,6 +116,7 @@ export default {
 	},
 	data() {
 		return {
+			id: "",
 			size: { width: 600, height: 400 },
 			comment: {
 				youtubeId: "",
@@ -136,6 +135,26 @@ export default {
 		};
 	},
 	methods: {
+		updateComment(payload) {
+			let newupdatecomment = {
+				youtubeId: this.id,
+				nickName: this.updatecomment.nickName,
+				content: this.updatecomment.content,
+				userId: this.$store.state.user.id,
+				commentNo: payload,
+			};
+			let idx = 0;
+			for (let index = 0; index < this.$store.state.comments.length; index++) {
+				if (this.$store.state.comments[index].commentNo == payload) {
+					idx = index;
+				}
+			}
+
+			this.$store.dispatch("updateComment", [newupdatecomment, idx]);
+			this.updatecomment.nickName = "";
+			this.updatecomment.content = "";
+			this.follow(payload);
+		},
 		isfollow(payload) {
 			// payload : 코멘트의 아이디
 			// user.follows : 로그인된 아이디가 팔로우한사람들
@@ -185,19 +204,10 @@ export default {
 		addfollow(payload) {
 			payload;
 		},
-		updateComment(payload) {
-			const pathName = new URL(document.location).pathname.split("/");
-			const id = pathName[pathName.length - 1];
-			this.updatecomment.youtubeId = id;
-			this.updatecomment.commentNo = payload;
-			console.log(payload);
-			this.$store.dispatch("updateComment", this.updatecomment);
-		},
+
 		createComment() {
-			const pathName = new URL(document.location).pathname.split("/");
-			const id = pathName[pathName.length - 1];
 			let newComment = {
-				youtubeId: id,
+				youtubeId: this.id,
 				nickName: this.comment.nickName,
 				content: this.comment.content,
 				userId: this.$store.state.user.id,
@@ -208,6 +218,7 @@ export default {
 			this.comment.content = "";
 			this.$store.dispatch("createComment", newComment);
 		},
+
 		// 해당 비디오가 로그인한 유저에게 찜 정보인지 아닌지 확인
 		checkLikeVideo() {
 			let check = false;
@@ -219,7 +230,9 @@ export default {
 			});
 			this.likedVideo = check;
 		},
+
 		// 찜 등록
+
 		insertLike() {
 			// const likeData = {
 			// 	youtubeId: this.$route.params.id,
@@ -241,14 +254,9 @@ export default {
 
 	created() {
 		const pathName = new URL(document.location).pathname.split("/");
-		const id = pathName[pathName.length - 1];
-		Bus.$emit("START_SPIN");
-		this.$store.dispatch("getVideo", id).then(() => {
-			this.$store.dispatch("getCommentList", id).then(() => {
-				Bus.$emit("END_SPIN");
-			});
-		});
-
+		this.id = pathName[pathName.length - 1];
+		this.$store.dispatch("getVideo", this.id);
+		this.$store.dispatch("getCommentList", this.id);
 		this.checkLikeVideo();
 	},
 };

@@ -107,4 +107,16 @@ export default {
   CREATESUBCOMMENT(state, payload) {
     state.subcomments.push(payload);
   },
+  DELETECOMMENT(state, payload) {
+    state.comments.splice(payload, 1);
+  },
+  UPDATECOMMENT(state, payload) {
+    state.comments.splice(payload[1], 1, payload[0]);
+  },
+  DELETESUBCOMMENT(state, payload) {
+    state.subcomments.splice(payload, 1);
+  },
+  UPDATESUBCOMMENT(state, payload) {
+    state.subcomments.splice(payload[1], 1, payload[0]);
+  },
 };
