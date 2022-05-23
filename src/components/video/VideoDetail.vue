@@ -69,9 +69,11 @@
 					<h6 class="comment-nick_name">{{ comment.nickName }}</h6>
 					<span class="comment-user_id">id : {{ comment.userId }}</span>
 				</div>
-				<router-link :to="`/commentDetail/${comment.commentNo}`">{{
-					comment.content
-				}}</router-link>
+				<router-link
+					class="comment-user_comment"
+					:to="`/commentDetail/${comment.commentNo}`"
+					>{{ comment.content }}</router-link
+				>
 				<!-- <comment-ud-btn :commentNo="comment.commentNo"></comment-ud-btn> -->
 				<comment-update-and-delete-btn
 					:commentNo="comment.commentNo"
@@ -190,7 +192,6 @@ export default {
 			console.log(payload);
 			this.$store.dispatch("updateComment", this.updatecomment);
 		},
-
 		createComment() {
 			const pathName = new URL(document.location).pathname.split("/");
 			const id = pathName[pathName.length - 1];
@@ -199,7 +200,11 @@ export default {
 				nickName: this.comment.nickName,
 				content: this.comment.content,
 				userId: this.$store.state.user.id,
+				commentNo: 0,
+				date: "",
 			};
+			this.comment.nickName = "";
+			this.comment.content = "";
 			this.$store.dispatch("createComment", newComment);
 		},
 		// 해당 비디오가 로그인한 유저에게 찜 정보인지 아닌지 확인
@@ -288,7 +293,15 @@ input:focus {
 
 .comment-user_id {
 	color: #2c3e50;
-	margin-right: 15px;
+	padding-right: 15px;
+}
+
+.comment-user_comment {
+	display: inline-block;
+	max-width: 200px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 #nickName {
@@ -314,6 +327,7 @@ input:focus {
 	overflow: scroll;
 	overflow-x: hidden;
 	margin-left: 20px;
+	padding-right: 0;
 	box-shadow: 3px 3px 5px -3px rgba(196, 196, 196, 0.83);
 }
 
@@ -333,7 +347,7 @@ input:focus {
 	display: none;
 }
 .comment-section-item {
-	padding: 10px 0 10px 10px;
+	padding: 10px 0px 10px 10px;
 }
 
 .comment-section-item:nth-child(even) {

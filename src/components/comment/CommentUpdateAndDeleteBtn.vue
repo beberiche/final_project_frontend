@@ -9,13 +9,12 @@
 export default {
   props: ["commentNo", "commentId"],
   methods: {
-	mycomment(commentId){
-		console.log(commentId);
-		if(this.$store.state.user.id == commentId){
-			return true;
-		}
-		return false;
-	},
+    mycomment(commentId) {
+      if (this.$store.state.user.id == commentId) {
+        return true;
+      }
+      return false;
+    },
     updateform(commentno) {
       if (document.getElementById(commentno).style.display == "none") {
         document.getElementById(commentno).style.display = "block";

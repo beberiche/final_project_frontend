@@ -1,7 +1,7 @@
 <template>
 	<div class="user-form">
-		<h2>회원가입</h2>
-		<user-form :disabled="false"></user-form>
+		<h2>비밀번호 수정</h2>
+		<user-form :disabled="true"></user-form>
 	</div>
 </template>
 
@@ -11,6 +11,7 @@ export default {
 	components: {
 		UserForm,
 	},
+	methods: {},
 };
 </script>
 

@@ -164,10 +164,11 @@ export default {
     }
   },
 
-  async createSubComment(_, subCommentData) {
+  async createSubComment({ commit }, subCommentData) {
     try {
       await createsubcomment(subCommentData);
-      router.push(`/commentDetail/${subCommentData.commentNo}`);
+      commit("CREATESUBCOMMENT",subCommentData);
+      //router.push(`/commentDetail/${subCommentData.commentNo}`);
     } catch (e) {
       console.log(e);
     }
@@ -236,10 +237,11 @@ export default {
     }
   },
 
-  async createComment(_, commentData) {
+  async createComment({ commit }, commentData) {
     try {
       await createcomment(commentData);
-      router.push(`/videoDetail/${commentData.youtubeId}`);
+      commit("CREATCOMMENT", commentData);
+      //router.push(`/videoDetail/${commentData.youtubeId}`);
     } catch (e) {
       console.log(e);
     }
@@ -254,7 +256,7 @@ export default {
     }
   },
 
-  async deleteFollow({commit}, commentData) {
+  async deleteFollow({ commit }, commentData) {
     try {
       await deletefollow(commentData);
       commit("DELETEFOLLOW", commentData);
