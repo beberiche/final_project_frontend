@@ -70,9 +70,11 @@
 					<h6 class="comment-nick_name">{{ comment.nickName }}</h6>
 					<span class="comment-user_id">id : {{ comment.userId }}</span>
 				</div>
-				<router-link :to="`/commentDetail/${comment.commentNo}`">{{
-					comment.content
-				}}</router-link>
+				<router-link
+					class="comment-user_comment"
+					:to="`/commentDetail/${comment.commentNo}`"
+					>{{ comment.content }}</router-link
+				>
 				<!-- <comment-ud-btn :commentNo="comment.commentNo"></comment-ud-btn> -->
 				<comment-update-and-delete-btn
 					:commentNo="comment.commentNo"
