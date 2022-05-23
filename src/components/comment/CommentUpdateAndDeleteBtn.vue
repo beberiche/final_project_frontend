@@ -22,11 +22,17 @@ export default {
         document.getElementById(commentno).style.display = "none";
       }
     },
-    deleteComment(commentno) {
-      const pathName = new URL(document.location).pathname.split("/");
-      const id = pathName[pathName.length - 1];
-      this.$store.dispatch("deleteComment", [commentno, id]);
+    deleteComment(payload) {
+      console.log(payload);
+      let idx = 0;
+      for (let index = 0; index < this.$store.state.comments.length; index++) {
+        if (this.$store.state.comments[index].commentNo == payload) {
+          idx = index;
+        }
+      }
+      this.$store.dispatch("deleteComment", [payload, idx]);
     },
+    
   },
 };
 </script>

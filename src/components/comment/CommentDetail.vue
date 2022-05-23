@@ -65,7 +65,7 @@
 					{{ subcomment.content }}
 				</div> -->
         <span class="comment-btn" v-if="mySubComment(subcomment.userId)">
-          <button @click="updateform(subcomment.subNo)">수정</button>
+          <button @click="updateform('update' + subcomment.subNo)">수정</button>
           <button
             class="delete-btn"
             @click="deleteSubComment(subcomment.subNo)"
@@ -73,7 +73,7 @@
             삭제
           </button>
         </span>
-        <div :id="subcomment.subNo" style="display: none">
+        <div :id="'update' + subcomment.subNo" style="display: none">
           <input
             type="text"
             id="nickName"
@@ -237,11 +237,29 @@ export default {
       return false;
     },
     updateSubComment(payload) {
-      console.log(payload);
-      this.updatesubcomment.commentNo = payload[0];
-      this.updatesubcomment.subNo = payload[1];
-      this.updatesubcomment.userId = payload[2];
-      this.$store.dispatch("updateSubComment", this.updatesubcomment);
+      // date: "",
+      let idx = 0;
+      for (
+        let index = 0;
+        index < this.$store.state.subcomments.length;
+        index++
+      ) {
+        if (this.$store.state.subcomments[index].subNo == payload[1]) {
+          idx = index;
+        }
+      }
+      let newupdatesubcomment = {
+        commentNo: payload[0],
+        subNo: payload[1],
+        userId: payload[2],
+        nickName: this.updatesubcomment.nickName,
+        content: this.updatesubcomment.content,
+        date: this.$store.state.subcomments[idx].date,
+      };
+      this.$store.dispatch("updateSubComment", [newupdatesubcomment, idx]);
+      this.updateform("update" + payload[1]);
+      this.updatesubcomment.nickName = "";
+      this.updatesubcomment.content = "";
     },
     updateform(subcommentno) {
       if (document.getElementById(subcommentno).style.display == "none") {
@@ -251,7 +269,18 @@ export default {
       }
     },
     deleteSubComment(payload) {
-      this.$store.dispatch("deleteSubComment", [this.id, payload]);
+      let idx = 0;
+      for (
+        let index = 0;
+        index < this.$store.state.subcomments.length;
+        index++
+      ) {
+        if (this.$store.state.subcomments[index].subNo == payload) {
+          idx = index;
+        }
+      }
+      this.$store.dispatch("deleteSubComment", [payload, idx]);
+      //this.$store.dispatch("deleteSubComment", [this.id, payload]);
     },
     createSubComment() {
       let newsubcomment = {

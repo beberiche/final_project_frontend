@@ -115,6 +115,7 @@ export default {
   },
   data() {
     return {
+      id: "",
       size: { width: 600, height: 400 },
       comment: {
         youtubeId: "",
@@ -133,6 +134,26 @@ export default {
     };
   },
   methods: {
+    updateComment(payload) {
+      let newupdatecomment = {
+        youtubeId: this.id,
+        nickName: this.updatecomment.nickName,
+        content: this.updatecomment.content,
+        userId: this.$store.state.user.id,
+        commentNo: payload,
+      };
+      let idx = 0;
+      for (let index = 0; index < this.$store.state.comments.length; index++) {
+        if (this.$store.state.comments[index].commentNo == payload) {
+          idx = index;
+        }
+      }
+
+      this.$store.dispatch("updateComment", [newupdatecomment, idx]);
+      this.updatecomment.nickName = "";
+      this.updatecomment.content = "";
+      this.follow(payload);
+    },
     isfollow(payload) {
       // payload : 코멘트의 아이디
       // user.follows : 로그인된 아이디가 팔로우한사람들
@@ -182,20 +203,10 @@ export default {
     addfollow(payload) {
       payload;
     },
-    updateComment(payload) {
-      const pathName = new URL(document.location).pathname.split("/");
-      const id = pathName[pathName.length - 1];
-      this.updatecomment.youtubeId = id;
-      this.updatecomment.commentNo = payload;
-      console.log(payload);
-      this.$store.dispatch("updateComment", this.updatecomment);
-    },
 
     createComment() {
-      const pathName = new URL(document.location).pathname.split("/");
-      const id = pathName[pathName.length - 1];
       let newComment = {
-        youtubeId: id,
+        youtubeId: this.id,
         nickName: this.comment.nickName,
         content: this.comment.content,
         userId: this.$store.state.user.id,
@@ -235,17 +246,20 @@ export default {
       };
       this.$store.dispatch("FETCH_DELETE_LIKE", likeData);
     },
-    computed: {
-      ...mapState(["comments", "video", "subcomments", "user"]),
-    },
+  },
+  computed: {
+    ...mapState(["comments", "video", "subcomments", "user"]),
+  },
 
-    created() {
-      const pathName = new URL(document.location).pathname.split("/");
-      const id = pathName[pathName.length - 1];
-      this.$store.dispatch("getVideo", id);
-      this.$store.dispatch("getCommentList", id);
-      this.checkLikeVideo();
-    },
+  created() {
+    const pathName = new URL(document.location).pathname.split("/");
+    this.id = pathName[pathName.length - 1];
+    this.$store.dispatch("getVideo", this.id);
+    console.log(this.id);
+    console.log(1);
+
+    this.$store.dispatch("getCommentList", this.id);
+    this.checkLikeVideo();
   },
 };
 </script>
