@@ -8,17 +8,19 @@ export default {
   ///////////////////////////////
   ///////////////////////////////
   SET_TOKEN(state, { data, call }) {
-    console.log(data);
-    console.log(call);
+    // console.log(data);
+    // console.log(call);
     if (data.message === "fail") {
       alert("입력이 잘못 입력 되었습니다.");
     } else {
-      sessionStorage.setItem("auth-token", data["auth-token"]);
+      sessionStorage.setItem("access-token", data["access-token"]);
       state.user.name = data.userData.name;
       state.user.age = data.userData.age;
       state.user.id = data.userData.id;
       state.isLogined = true;
-      axios.defaults.headers["auth-token"] = data["auth-token"];
+      axios.defaults.headers["access-token"] = data["access-token"];
+      console.log(axios.defaults.headers);
+
       if (call) {
         router.push(call);
       } else {
@@ -31,7 +33,8 @@ export default {
     state.user.age = "";
     state.user.id = "";
     state.isLogined = false;
-    axios.defaults.headers["auth-token"] = "";
+    console.log(axios.defaults.headers);
+    axios.defaults.headers["access-token"] = "";
     router.push("/user/login");
   },
   SET_LIKES_VIDEO(state, data) {
@@ -56,7 +59,7 @@ export default {
     state.user.age = "";
     state.user.id = "";
     state.isLogined = false;
-    axios.defaults.headers["auth-token"] = "";
+    // axios.defaults.headers["access-token"] = "";
     router.push("/");
   },
   INSERT_LIKE(state, data) {
