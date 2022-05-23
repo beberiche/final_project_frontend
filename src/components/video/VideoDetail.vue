@@ -198,7 +198,11 @@ export default {
         nickName: this.comment.nickName,
         content: this.comment.content,
         userId: this.$store.state.user.id,
+        commentNo: 0,
+        date: "",
       };
+      this.comment.nickName = "";
+      this.comment.content = "";
       this.$store.dispatch("createComment", newComment);
     },
     // 해당 비디오가 로그인한 유저에게 찜 정보인지 아닌지 확인

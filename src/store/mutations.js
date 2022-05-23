@@ -90,7 +90,7 @@ export default {
   },
   CREATCOMMENT(state, payload) {
     state.comments.push(payload);
-    router.push(`/videoDetail/${payload.youtubeId}`);
+    //router.push(`/videoDetail/${payload.youtubeId}`);
   },
   GETCOMMENT(state, payload) {
     state.comment = payload;
@@ -103,5 +103,8 @@ export default {
   },
   DELETEFOLLOW(state, payload) {
     state.user.follows.pop(payload);
+  },
+  CREATESUBCOMMENT(state, payload) {
+    state.subcomments.push(payload);
   },
 };
