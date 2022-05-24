@@ -1,7 +1,10 @@
 import router from "../router";
 // import { createApi } from "@/api";
-// import { axios } from "@/main";
-// const axios = createApi();
+
+// let axios = createApi();
+// if (sessionStorage.getItem("access-token")) {
+//   axios.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
+// }
 
 export default {
   // USER ///////////////////////
@@ -13,7 +16,7 @@ export default {
     if (data.message === "fail") {
       alert("입력이 잘못 입력 되었습니다.");
     } else {
-      sessionStorage.setItem("access-token", data["access-token"]);
+      localStorage.setItem("access-token", data["access-token"]);
       state.user.name = data.userData.name;
       state.user.age = data.userData.age;
       state.user.id = data.userData.id;
@@ -33,8 +36,9 @@ export default {
     state.user.age = "";
     state.user.id = "";
     state.isLogined = false;
+    localStorage.removeItem("access-token");
     // console.log(axios.defaults.headers);
-    // axios.defaults.headers.common["access-token"] = "";
+    // axios.defaults.headers["access-token"] = "";
     router.push("/user/login");
   },
   SET_LIKES_VIDEO(state, data) {

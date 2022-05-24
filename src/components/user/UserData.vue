@@ -7,7 +7,9 @@
 			<div>나이 : {{ userData.age }}</div>
 		</div>
 		<div>
-			<user-option-btn></user-option-btn>
+			<user-option-btn
+				v-if="userData.name === this.$store.state.user.name"
+			></user-option-btn>
 		</div>
 	</div>
 </template>
