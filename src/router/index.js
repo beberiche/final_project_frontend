@@ -15,12 +15,12 @@ import CommentDetail from "../components/comment/CommentDetail";
 import store from "../store";
 
 /** 같은 페이지에서 같은 페이지로 $router.push 한 오률를 처리함 **/
-const originalPush = VueRouter.prototype.push;
-VueRouter.prototype.push = function push(location) {
-  return originalPush.call(this, location).catch(() => {
-    return window.location.reload();
-  });
-};
+// const originalPush = VueRouter.prototype.push;
+// VueRouter.prototype.push = function push(location) {
+//   return originalPush.call(this, location).catch(() => {
+//     return window.location.reload();
+//   });
+// };
 
 Vue.use(VueRouter);
 

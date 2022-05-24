@@ -21,13 +21,13 @@
 </template>
 
 <script>
-import HeaderNav from "./components/common/HeaderNav.vue";
+import HeaderNav from "./components/nav/HeaderNav.vue";
 // import FooterPromotion from "./components/promotion/FooterPromotion.vue";
 import HeaderPromotion from "./components/promotion/HeaderPromotion.vue";
-import UserNav from "./components/common/UserNav.vue";
+import UserNav from "./components/nav/UserNav.vue";
 import Spinner from "./components/utils/SpinnerTool.vue";
 import Bus from "./components/utils/Bus.js";
-import LogoNav from "./components/common/logoNav.vue";
+import LogoNav from "./components/nav/logoNav.vue";
 export default {
 	data() {
 		return {

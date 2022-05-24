@@ -19,12 +19,17 @@
 				<strong>{{ this.$store.state.user.likes.length }}</strong> 개
 			</div>
 			<button class="user-logout" @click="userLogout">로그아웃</button>
+			<back-btn></back-btn>
 		</div>
 	</nav>
 </template>
 
 <script>
+import BackBtn from "@/components/utils/BackBtn.vue";
 export default {
+	components: {
+		BackBtn,
+	},
 	methods: {
 		userLogout() {
 			if (confirm(`로그아웃 하시겠습니까??`))

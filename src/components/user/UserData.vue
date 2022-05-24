@@ -8,7 +8,7 @@
 		</div>
 		<div>
 			<user-option-btn
-				v-if="userData.name === this.$store.state.user.name"
+				v-if="userData.id === this.$store.state.user.id"
 			></user-option-btn>
 		</div>
 	</div>
