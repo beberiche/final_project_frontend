@@ -31,8 +31,10 @@ export default {
 }
 
 .video-search {
-  position: absolute;
-  top: 13%;
+
+	position: absolute;
+	top: 14%;
+
 }
 
 /*스크롤 바 디자인*/

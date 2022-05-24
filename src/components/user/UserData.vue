@@ -1,15 +1,19 @@
 <template>
-  <div class="user">
-    <h6>사용자 정보</h6>
-    <div class="user-data">
-      <div>이름 : {{ userData.name }}</div>
-      <div>아이디 : {{ userData.id }}</div>
-      <div>나이 : {{ userData.age }}</div>
-    </div>
-    <div v-if="userData.id == this.$store.state.user.userId">
-      <user-option-btn></user-option-btn>
-    </div>
-  </div>
+
+	<div class="user">
+		<h6>사용자 정보</h6>
+		<div class="user-data">
+			<div>이름 : {{ userData.name }}</div>
+			<div>아이디 : {{ userData.id }}</div>
+			<div>나이 : {{ userData.age }}</div>
+		</div>
+		<div>
+			<user-option-btn
+				v-if="userData.id === this.$store.state.user.id"
+			></user-option-btn>
+		</div>
+	</div>
+
 </template>
 
 <script>

@@ -2,8 +2,10 @@ import { createApi } from "@/api";
 // import router from "@/router";
 
 const axios = createApi();
-if (sessionStorage.getItem("access-token")) {
-  axios.defaults.headers["access-token"] = sessionStorage.getItem("access-token");
+function setTokenToHeader() {
+  if (localStorage.getItem("access-token")) {
+    axios.defaults.headers["access-token"] = localStorage.getItem("access-token");
+  }
 }
 // USER ///////////////////////
 ////////////////////////////////
@@ -22,6 +24,7 @@ export async function fetchlogin(userData) {
 
 export async function fetchlikesvideo(userId) {
   try {
+    setTokenToHeader();
     return axios({
       url: `/like/videos/${userId}`,
       method: "GET",
@@ -33,6 +36,8 @@ export async function fetchlikesvideo(userId) {
 
 export async function fetchfollows(userId) {
   try {
+    setTokenToHeader();
+    console.log(axios.defaults.headers);
     return axios({
       url: `/follow/${userId}`,
       method: "GET",
@@ -44,6 +49,7 @@ export async function fetchfollows(userId) {
 
 export async function fetchfollowuser(userId) {
   try {
+    console.log(axios.defaults.headers);
     return axios({
       url: `/user/${userId}`,
       method: "GET",
@@ -55,6 +61,7 @@ export async function fetchfollowuser(userId) {
 
 export async function fetchfollowlikes(userId) {
   try {
+    console.log(axios.defaults.headers);
     return axios({
       url: `/like/${userId}`,
       method: "GET",
@@ -66,6 +73,7 @@ export async function fetchfollowlikes(userId) {
 
 export async function fetchupdatepassword(userData) {
   try {
+    console.log(axios.defaults.headers);
     return axios({
       url: `/user/`,
       method: "PUT",
@@ -78,6 +86,7 @@ export async function fetchupdatepassword(userData) {
 
 export async function fetchdeleteuser(userId) {
   try {
+    console.log(axios.defaults.headers);
     return axios({
       url: `/user/${userId}`,
       method: "DELETE",
@@ -89,6 +98,7 @@ export async function fetchdeleteuser(userId) {
 
 export async function fetchsignupuser(userData) {
   try {
+    console.log(axios.defaults.headers);
     return axios({
       url: `/user/`,
       method: "POST",
@@ -101,6 +111,7 @@ export async function fetchsignupuser(userData) {
 
 export async function fetchcreatelike(likeData) {
   try {
+    console.log(axios.defaults.headers);
     return axios({
       url: `/like/`,
       method: "POST",
@@ -113,6 +124,7 @@ export async function fetchcreatelike(likeData) {
 
 export async function fetchdeletelike(likeData) {
   try {
+    console.log(axios.defaults.headers);
     return axios({
       url: `/like/`,
       method: "DELETE",
@@ -133,6 +145,7 @@ export async function fetchdeletelike(likeData) {
 
 export async function updatesubcomment(subCommentData) {
   try {
+    console.log(axios.defaults.headers);
     return axios({
       url: `http://localhost:9999/api/subcomment/`,
       method: "PUT",
@@ -145,6 +158,7 @@ export async function updatesubcomment(subCommentData) {
 
 export async function deletesubcomment(payload) {
   try {
+    console.log(axios.defaults.headers);
     return axios({
       url: `http://localhost:9999/api/subcomment/${payload}`,
       method: "DELETE",
@@ -156,6 +170,7 @@ export async function deletesubcomment(payload) {
 
 export async function createsubcomment(subCommentData) {
   try {
+    console.log(axios.defaults.headers);
     return axios({
       url: `http://localhost:9999/api/subcomment/`,
       method: "POST",
@@ -168,6 +183,8 @@ export async function createsubcomment(subCommentData) {
 
 export async function getsubcomments(subCommentId) {
   try {
+    setTokenToHeader();
+    console.log(axios.defaults.headers);
     return axios({
       url: `http://localhost:9999/api/subcomment/${subCommentId}`,
       method: "GET",
@@ -179,6 +196,8 @@ export async function getsubcomments(subCommentId) {
 
 export async function getcomment(commentId) {
   try {
+    setTokenToHeader();
+    console.log(axios.defaults.headers);
     return axios({
       url: `http://localhost:9999/api/comment/detail/${commentId}`,
       method: "GET",
@@ -190,6 +209,7 @@ export async function getcomment(commentId) {
 
 export async function updatecomment(commentData) {
   try {
+    console.log(axios.defaults.headers);
     return axios({
       url: `http://localhost:9999/api/comment/`,
       method: "PUT",
@@ -202,6 +222,7 @@ export async function updatecomment(commentData) {
 
 export async function deletecomment(payload) {
   try {
+    console.log(axios.defaults.headers);
     return axios({
       url: `http://localhost:9999/api/comment/${payload}`,
       method: "DELETE",
@@ -213,6 +234,7 @@ export async function deletecomment(payload) {
 
 export async function getvideo(youtubeId) {
   try {
+    console.log(axios.defaults.headers);
     return axios({
       url: `http://localhost:9999/api/video/${youtubeId}`,
       method: "GET",
@@ -228,6 +250,8 @@ export async function getlist(payload) {
     params = payload;
   }
   try {
+    setTokenToHeader();
+    console.log(axios.defaults.headers);
     return axios({
       url: `http://localhost:9999/api/video/list`,
       method: "GET",
@@ -240,6 +264,7 @@ export async function getlist(payload) {
 
 export async function getcommentlist(youtubeId) {
   try {
+    console.log(axios.defaults.headers);
     return axios({
       url: `http://localhost:9999/api/comment/${youtubeId}`,
       method: "GET",
@@ -251,6 +276,7 @@ export async function getcommentlist(youtubeId) {
 
 export async function createcomment(commentData) {
   try {
+    console.log(axios.defaults.headers);
     return axios({
       url: `http://localhost:9999/api/comment/`,
       method: "POST",
@@ -263,6 +289,7 @@ export async function createcomment(commentData) {
 
 export async function createfollow(followData) {
   try {
+    console.log(axios.defaults.headers);
     return axios({
       url: `http://localhost:9999/api/follow/`,
       method: "POST",
@@ -275,6 +302,7 @@ export async function createfollow(followData) {
 
 export async function deletefollow(followData) {
   try {
+    console.log(axios.defaults.headers);
     return axios({
       url: `http://localhost:9999/api/follow/${followData.userId}/${followData.followId}`,
       method: "DELETE",
