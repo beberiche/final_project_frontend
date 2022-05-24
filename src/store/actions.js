@@ -1,4 +1,4 @@
-import router from "@/router/index.js";
+//import router from "@/router/index.js";
 import {
   fetchlogin,
   fetchlikesvideo,
@@ -104,7 +104,9 @@ export default {
   async FETCH_SIGN_UP_USER(_, user) {
     try {
       await fetchsignupuser(user);
-      if (confirm("회원정보가 성공적으로 등록되었습니다.\n 로그인 하시겠습니까?")) {
+      if (
+        confirm("회원정보가 성공적으로 등록되었습니다.\n 로그인 하시겠습니까?")
+      ) {
         const userData = {
           user,
           call: "",
@@ -124,7 +126,7 @@ export default {
       });
       // const { data } = await this.FETCH_LIKES_VIDEO(likeData.userId);
       commit("INSERT_LIKE", videoData);
-      router.push(`/user/${store.state.user.userId}`);
+      //router.push(`/user/${store.state.user.userId}`);
     } catch (e) {
       console.log(e);
     }
@@ -134,7 +136,7 @@ export default {
     try {
       await fetchdeletelike(likeData);
       commit("DELETE_LIKE", likeData);
-      router.push(`/user/${likeData.userId}`);
+      //router.push(`/user/${likeData.userId}`);
     } catch (e) {
       console.log(e);
     }
