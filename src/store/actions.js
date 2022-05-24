@@ -1,5 +1,3 @@
-// import router from "@/router/index.js";
-// import axios from "axios";
 import {
   fetchlogin,
   fetchlikesvideo,
@@ -125,7 +123,6 @@ export default {
       });
       // const { data } = await this.FETCH_LIKES_VIDEO(likeData.userId);
       commit("INSERT_LIKE", videoData);
-      // router.push(`/user/${store.state.user.userId}`);
     } catch (e) {
       console.log(e);
     }
@@ -135,7 +132,6 @@ export default {
     try {
       await fetchdeletelike(likeData);
       commit("DELETE_LIKE", likeData);
-      // router.push(`/user/${likeData.userId}`);
     } catch (e) {
       console.log(e);
     }
@@ -144,7 +140,6 @@ export default {
   // VIDEO ///////////////////////
   ///////////////////////////////
   ///////////////////////////////
-
   async updateSubComment({ commit }, subCommentData) {
     try {
       await updatesubcomment(subCommentData[0]);

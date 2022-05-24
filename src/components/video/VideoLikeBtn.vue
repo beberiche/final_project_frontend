@@ -49,16 +49,6 @@ export default {
 	created() {
 		this.checkLikeVideo();
 	},
-	// computed: {
-	// 	check: function () {
-	// 		return this.$store.state.user.likes;
-	// 	},
-	// },
-	// watch: {
-	// 	check() {
-	// 		this.checkLikeVideo();
-	// 	},
-	// },
 };
 </script>
 

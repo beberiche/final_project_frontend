@@ -32,7 +32,7 @@ export default {
 
 .video-search {
 	position: absolute;
-	top: 14%;
+	top: 13%;
 }
 
 /*스크롤 바 디자인*/
@@ -52,4 +52,3 @@ export default {
 	display: none;
 }
 </style>
-
