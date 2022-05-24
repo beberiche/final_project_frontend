@@ -1,4 +1,4 @@
-import router from "@/router/index.js";
+// import router from "@/router/index.js";
 import {
   fetchlogin,
   fetchlikesvideo,
@@ -124,7 +124,7 @@ export default {
       });
       // const { data } = await this.FETCH_LIKES_VIDEO(likeData.userId);
       commit("INSERT_LIKE", videoData);
-      router.push(`/user/${store.state.user.userId}`);
+      // router.push(`/user/${store.state.user.userId}`);
     } catch (e) {
       console.log(e);
     }
@@ -134,7 +134,7 @@ export default {
     try {
       await fetchdeletelike(likeData);
       commit("DELETE_LIKE", likeData);
-      router.push(`/user/${likeData.userId}`);
+      // router.push(`/user/${likeData.userId}`);
     } catch (e) {
       console.log(e);
     }
@@ -208,7 +208,7 @@ export default {
       console.log(payload[0]);
       await deletecomment(payload[0]);
       commit("DELETECOMMENT", payload[1]);
-      //router.push(`/videoDetail/${payload[1]}`);
+      // router.push(`/videoDetail/${payload[1]}`);
     } catch (e) {
       console.log(e);
     }

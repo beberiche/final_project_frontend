@@ -34,6 +34,7 @@ export default {
 			// 	youtubeId: this.$route.params.id,
 			// 	userId: this.$store.state.user.id,
 			// };
+			this.likedVideo = true;
 			this.$store.dispatch("FETCH_INSERT_LIKE", this.$store.state.video);
 		},
 		deleteLike() {
@@ -41,24 +42,37 @@ export default {
 				youtubeId: this.$route.params.id,
 				userId: this.$store.state.user.id,
 			};
+			this.likedVideo = false;
 			this.$store.dispatch("FETCH_DELETE_LIKE", likeData);
 		},
 	},
 	created() {
 		this.checkLikeVideo();
 	},
+	// computed: {
+	// 	check: function () {
+	// 		return this.$store.state.user.likes;
+	// 	},
+	// },
+	// watch: {
+	// 	check() {
+	// 		this.checkLikeVideo();
+	// 	},
+	// },
 };
 </script>
 
 <style scoped>
 .video-like-btn {
 	position: absolute;
-	top: 11%;
+	top: 14%;
 }
 
 button {
 	border: none;
 	font-size: 0.8rem;
+	width: 40px;
+	height: 30px;
 	padding: 5px 10px;
 	border-radius: 5px 5px 5px 5px;
 	background-color: aliceblue;
