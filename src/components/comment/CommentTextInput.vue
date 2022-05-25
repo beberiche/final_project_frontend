@@ -98,4 +98,10 @@ button:hover {
 	justify-content: space-between;
 	align-items: center;
 }
+
+.form-control:focus {
+	box-shadow: none;
+	border: 1px solid #2c3e50;
+	transition: all 0.3s linear;
+}
 </style>

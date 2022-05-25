@@ -71,7 +71,8 @@ export default {
 
 .container {
 	display: flex;
-	padding: 0 !important;
+	padding: 0;
+	justify-content: center;
 	height: 70vh;
 }
 
