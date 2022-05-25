@@ -19,23 +19,23 @@
 <script>
 import UserOptionBtn from "./UserOptionBtn.vue";
 export default {
-  props: ["userData"],
-  components: {
-    UserOptionBtn,
-  },
+	props: ["userData"],
+	components: {
+		UserOptionBtn,
+	},
 };
 </script>
 
 <style scoped>
 .user {
-  width: 400px;
-  padding: 20px;
-  border: 1px solid #8b9092;
-  border-radius: 10px;
-  box-shadow: 3px 3px 5px -3px rgba(196, 196, 196, 0.83);
+	width: 400px;
+	padding: 20px;
+	border: 1px solid #8b9092;
+	border-radius: 10px;
+	box-shadow: 3px 3px 5px -3px rgba(196, 196, 196, 0.83);
 }
 
 .user-data {
-  margin: 20px 0;
+	margin: 20px 0;
 }
 </style>

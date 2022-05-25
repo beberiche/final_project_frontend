@@ -17,7 +17,6 @@ export default {
       alert("입력이 잘못 입력 되었습니다.");
     } else {
       localStorage.setItem("access-token", data["access-token"]);
-      localStorage.setItem("refresh-token", data["refresh-token"]);
       state.user.name = data.userData.name;
       state.user.age = data.userData.age;
       state.user.id = data.userData.id;

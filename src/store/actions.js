@@ -1,7 +1,3 @@
-
-// import router from "@/router/index.js";
-// import axios from "axios";
-
 import {
   fetchlogin,
   fetchlikesvideo,
@@ -107,9 +103,7 @@ export default {
   async FETCH_SIGN_UP_USER(_, user) {
     try {
       await fetchsignupuser(user);
-      if (
-        confirm("회원정보가 성공적으로 등록되었습니다.\n 로그인 하시겠습니까?")
-      ) {
+      if (confirm("회원정보가 성공적으로 등록되었습니다.\n 로그인 하시겠습니까?")) {
         const userData = {
           user,
           call: "",
@@ -129,7 +123,7 @@ export default {
       });
       // const { data } = await this.FETCH_LIKES_VIDEO(likeData.userId);
       commit("INSERT_LIKE", videoData);
-      // router.push(`/user/${store.state.user.userId}`);
+
     } catch (e) {
       console.log(e);
     }
@@ -140,8 +134,6 @@ export default {
       await fetchdeletelike(likeData);
       commit("DELETE_LIKE", likeData);
 
-      // router.push(`/user/${likeData.userId}`);
-
     } catch (e) {
       console.log(e);
     }
@@ -150,7 +142,6 @@ export default {
   // VIDEO ///////////////////////
   ///////////////////////////////
   ///////////////////////////////
-
   async updateSubComment({ commit }, subCommentData) {
     try {
       await updatesubcomment(subCommentData[0]);

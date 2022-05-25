@@ -8,20 +8,20 @@
 
 <script>
 export default {
-  props: {
-    loading: {
-      type: Boolean,
-      required: true,
-    },
-  },
+	props: {
+		loading: {
+			type: Boolean,
+			required: true,
+		},
+	},
 };
 </script>
 
 <style scoped>
 .spinner-container {
-  position: absolute;
-  top: 43%;
-  left: 53%;
+	position: absolute;
+	top: 43%;
+	left: 53%;
 }
 .spinner {
 
@@ -35,11 +35,11 @@ export default {
 
 }
 @keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
 }
 </style>
