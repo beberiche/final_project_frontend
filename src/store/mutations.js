@@ -109,7 +109,7 @@ export default {
     state.user.follows.push(payload);
   },
   DELETEFOLLOW(state, payload) {
-    state.user.follows.pop(payload);
+    state.user.follows.splice(payload, 1);
   },
   CREATESUBCOMMENT(state, payload) {
     state.subcomments.push(payload);
