@@ -2,17 +2,7 @@
 	<div class="videoDetail">
 		<section class="video-section">
 			<video-like-btn></video-like-btn>
-			<div class="video-iframe">
-				<iframe
-					:width="size.width"
-					:height="size.height"
-					:src="`https://www.youtube.com/embed/` + video.youtubeId"
-					title="YouTube video player"
-					frameborder="0"
-					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-					allowfullscreen
-				></iframe>
-			</div>
+			<video-iframe :youtubeId="video.youtubeId"></video-iframe>
 			<video-info
 				:videoData="{
 					title: video.title,
@@ -21,7 +11,7 @@
 					viewCnt: video.viewCnt,
 				}"
 			></video-info>
-			<div class="comment_input-wrapper">
+			<!-- <div class="comment_input-wrapper">
 				<div class="nickName-component">
 					<input
 						type="text"
@@ -37,7 +27,8 @@
 					id="content"
 					rows="3"
 				></b-form-textarea>
-			</div>
+			</div> -->
+			<comment-text-input></comment-text-input>
 		</section>
 		<!-- <button >찜취소</button> -->
 
@@ -110,22 +101,19 @@ import { mapState } from "vuex";
 import VideoLikeBtn from "./VideoLikeBtn.vue";
 import VideoInfo from "./VideoInfo.vue";
 import CommentUpdateAndDeleteBtn from "@/components/comment/CommentUpdateAndDeleteBtn.vue";
+import VideoIframe from "./VideoIframe.vue";
+import CommentTextInput from "../comment/CommentTextInput.vue";
 export default {
 	components: {
 		VideoLikeBtn,
 		VideoInfo,
 		CommentUpdateAndDeleteBtn,
+		VideoIframe,
+		CommentTextInput,
 	},
 	data() {
 		return {
 			id: "",
-			size: { width: 600, height: 400 },
-			comment: {
-				youtubeId: "",
-				nickName: "",
-				content: "",
-				userId: "",
-			},
 			updatecomment: {
 				youtubeId: "",
 				nickName: "",
@@ -206,49 +194,6 @@ export default {
 		addfollow(payload) {
 			payload;
 		},
-
-		createComment() {
-			let newComment = {
-				youtubeId: this.id,
-				nickName: this.comment.nickName,
-				content: this.comment.content,
-				userId: this.$store.state.user.id,
-				commentNo: 0,
-				date: "",
-			};
-			this.comment.nickName = "";
-			this.comment.content = "";
-			this.$store.dispatch("createComment", newComment);
-		},
-
-		// 해당 비디오가 로그인한 유저에게 찜 정보인지 아닌지 확인
-		checkLikeVideo() {
-			let check = false;
-			this.$store.state.user.likes.forEach((data) => {
-				if (data.youtubeId == this.$route.params.id) {
-					check = true;
-					return;
-				}
-			});
-			this.likedVideo = check;
-		},
-
-		// 찜 등록
-
-		insertLike() {
-			// const likeData = {
-			// 	youtubeId: this.$route.params.id,
-			// 	userId: this.$store.state.user.id,
-			// };
-			this.$store.dispatch("FETCH_INSERT_LIKE", this.$store.state.video);
-		},
-		deleteLike() {
-			const likeData = {
-				youtubeId: this.$route.params.id,
-				userId: this.$store.state.user.id,
-			};
-			this.$store.dispatch("FETCH_DELETE_LIKE", likeData);
-		},
 	},
 	computed: {
 		...mapState(["comments", "video", "subcomments", "user"]),
@@ -320,20 +265,6 @@ input:focus {
 	text-overflow: ellipsis;
 }
 
-#nickName {
-	margin-bottom: 10px;
-}
-
-#nickName::placeholder,
-.form-control::placeholder {
-	font-size: 0.7rem;
-}
-.nickName-component {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
 .video-like-btn {
 	text-align: right;
 }
@@ -380,10 +311,6 @@ span {
 	font-size: 0.7rem;
 }
 
-.comment-btn {
-	float: right;
-	padding: 0 10px;
-}
 .delete-btn {
 	margin-left: 3px;
 }
