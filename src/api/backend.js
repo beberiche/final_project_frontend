@@ -4,7 +4,8 @@ import { createApi } from "@/api";
 const axios = createApi();
 function setTokenToHeader() {
   if (localStorage.getItem("access-token")) {
-    axios.defaults.headers["access-token"] = localStorage.getItem("access-token");
+    axios.defaults.headers["access-token"] =
+      localStorage.getItem("access-token");
   }
 }
 // USER ///////////////////////
@@ -304,7 +305,7 @@ export async function deletefollow(followData) {
   try {
     console.log(axios.defaults.headers);
     return axios({
-      url: `http://localhost:9999/api/follow/${followData.userId}/${followData.followId}`,
+      url: `http://localhost:9999/api/follow/${followData[0].userId}/${followData[0].followId}`,
       method: "DELETE",
     });
   } catch (e) {

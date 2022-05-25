@@ -103,7 +103,9 @@ export default {
   async FETCH_SIGN_UP_USER(_, user) {
     try {
       await fetchsignupuser(user);
-      if (confirm("회원정보가 성공적으로 등록되었습니다.\n 로그인 하시겠습니까?")) {
+      if (
+        confirm("회원정보가 성공적으로 등록되었습니다.\n 로그인 하시겠습니까?")
+      ) {
         const userData = {
           user,
           call: "",
@@ -123,7 +125,6 @@ export default {
       });
       // const { data } = await this.FETCH_LIKES_VIDEO(likeData.userId);
       commit("INSERT_LIKE", videoData);
-
     } catch (e) {
       console.log(e);
     }
@@ -133,7 +134,6 @@ export default {
     try {
       await fetchdeletelike(likeData);
       commit("DELETE_LIKE", likeData);
-
     } catch (e) {
       console.log(e);
     }
@@ -259,10 +259,10 @@ export default {
     }
   },
 
-  async deleteFollow({ commit }, commentData) {
+  async deleteFollow({ commit }, followData) {
     try {
-      await deletefollow(commentData);
-      commit("DELETEFOLLOW", commentData);
+      await deletefollow(followData);
+      commit("DELETEFOLLOW", followData[1]);
     } catch (e) {
       console.log(e);
     }

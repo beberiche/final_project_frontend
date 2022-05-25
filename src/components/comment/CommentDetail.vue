@@ -90,38 +90,6 @@
 			</div>
 		</section>
 
-		<!-- <div v-for="(subcomment, index) in subcomments" :key="index">
-			{{ subcomment.userId }}|{{ subcomment.nickName }} |
-			{{ subcomment.content }} |
-			{{ subcomment.date }}
-			<button @click="deleteSubComment(subcomment.subNo)">삭제</button>
-			<button @click="updateform(subcomment.subNo)">수정</button>
-			<div :id="subcomment.subNo" style="display: none">
-				<input
-					type="text"
-					id="nickName"
-					v-model="updatesubcomment.nickName"
-					:placeholder="subcomment.nickName"
-				/>
-				<input
-					type="text"
-					id="userId"
-					v-model="updatesubcomment.content"
-					:placeholder="subcomment.content"
-				/>
-				<button
-					@click="
-						updateSubComment([
-							comment.commentNo,
-							subcomment.subNo,
-							subcomment.userId,
-						])
-					"
-				>
-					완료
-				</button>
-			</div>
-		</div> -->
 		<section>
 			<div class="comment_input-wrapper">
 				<div class="nickName-component">
@@ -194,7 +162,6 @@ export default {
 				alert("본인의 아이디는 팔로우할 수 없습니다.");
 			} else {
 				let newfollow = {
-					followNo: 0,
 					userId: this.$store.state.user.id,
 					followId: payload[0],
 				};
@@ -204,11 +171,20 @@ export default {
 		},
 		deleteFollow(payload) {
 			let follow = {
-				followNo: 0,
 				userId: this.$store.state.user.id,
 				followId: payload[0],
 			};
-			this.$store.dispatch("deleteFollow", follow);
+			let idx = 0;
+			for (let i = 0; i < this.$store.state.user.follows.length; i++) {
+				if (
+					this.$store.state.user.follows[i].userId == follow.userId &&
+					this.$store.state.user.follows[i].followId == follow.followId
+				) {
+					idx = i;
+				}
+			}
+			console.log(follow);
+			this.$store.dispatch("deleteFollow", [follow, idx]);
 			this.follow(payload[1]);
 		},
 		isfollow(payload) {
@@ -291,6 +267,7 @@ export default {
 		},
 
 		follow(payload) {
+			console.log(payload);
 			if (document.getElementById(payload).style.display == "none") {
 				document.getElementById(payload).style.display = "block";
 			} else {
