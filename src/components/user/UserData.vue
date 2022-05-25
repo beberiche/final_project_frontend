@@ -1,4 +1,5 @@
 <template>
+
 	<div class="user">
 		<h6>사용자 정보</h6>
 		<div class="user-data">
@@ -12,6 +13,7 @@
 			></user-option-btn>
 		</div>
 	</div>
+
 </template>
 
 <script>

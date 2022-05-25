@@ -123,6 +123,7 @@ export default {
       });
       // const { data } = await this.FETCH_LIKES_VIDEO(likeData.userId);
       commit("INSERT_LIKE", videoData);
+
     } catch (e) {
       console.log(e);
     }
@@ -132,6 +133,7 @@ export default {
     try {
       await fetchdeletelike(likeData);
       commit("DELETE_LIKE", likeData);
+
     } catch (e) {
       console.log(e);
     }
