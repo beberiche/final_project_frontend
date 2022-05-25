@@ -1,6 +1,6 @@
 <template>
 	<div class="userView">
-		<transition name="fade" mode="out-in">
+		<transition name="move2" mode="out-in">
 			<router-view />
 		</transition>
 	</div>

@@ -3,13 +3,14 @@
 		<header-promotion></header-promotion>
 		<div id="app">
 			<div class="container">
-				<section class="aside-container">
+				<section class="aside-container" key="HeaderNav">
 					<header-nav></header-nav>
 					<user-nav v-show="this.$store.state.user.id"></user-nav>
 					<logo-nav></logo-nav>
 				</section>
+
 				<section class="view_wrapper">
-					<transition name="fade" mode="out-in">
+					<transition name="move" mode="out-in">
 						<router-view />
 					</transition>
 				</section>
@@ -80,13 +81,13 @@ export default {
 	display: flex;
 	flex-direction: column;
 	gap: 30px;
+	font-size: 0.85rem;
 }
 
 .view-wrapper {
 	width: 100%;
 }
-
-.fade-enter-active,
+/* .fade-enter-active,
 .fade-leave-active {
 	transition: opacity 0.3s linear;
 }
@@ -94,15 +95,53 @@ export default {
 .fade-enter-from,
 .fade-leave-to {
 	opacity: 0;
+} */
+
+.move-enter {
+	transform: translateY(-2500px);
 }
 
-.fade2-enter-active,
-.fade2-leave-active {
-	transition: opacity 1.5s linear;
+.move-enter-to {
+	transform: translateY(0px);
 }
 
-.fade2-enter-from,
-.fade2-leave-to {
-	opacity: 0;
+.move-leave {
+	transform: translateY(0px);
+}
+
+.move-leave-to {
+	transform: translateY(-2500px);
+}
+
+.move-leave-active {
+	transition: all 0.5s cubic-bezier(0.42, 0, 0.58, 1);
+}
+
+.move-enter-active {
+	transition: all 0.5s cubic-bezier(0.42, 0, 0.58, 1);
+}
+
+.move2-enter {
+	transform: translateX(-2500px);
+}
+
+.move2-enter-to {
+	transform: translateX(0px);
+}
+
+.move2-leave {
+	transform: translateX(0px);
+}
+
+.move2-leave-to {
+	transform: translateX(-2500px);
+}
+
+.move2-leave-active {
+	transition: all 0.5s cubic-bezier(0.42, 0, 0.58, 1);
+}
+
+.move2-enter-active {
+	transition: all 0.5s cubic-bezier(0.42, 0, 0.58, 1);
 }
 </style>

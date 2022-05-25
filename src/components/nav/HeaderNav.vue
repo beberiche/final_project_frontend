@@ -25,6 +25,7 @@ nav {
 	margin: 0 30px;
 	border: 0.7px solid #8b9092;
 	box-shadow: 3px 3px 5px -3px rgba(196, 196, 196, 0.83);
+	z-index: 1000;
 }
 
 nav a {
