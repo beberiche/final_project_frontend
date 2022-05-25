@@ -12,7 +12,7 @@
 					viewCnt: video.viewCnt,
 				}"
 			></video-info>
-			<comment-text-input></comment-text-input>
+			<comment-text-input :youtubeId="video.youtubeId"></comment-text-input>
 		</section>
 
 		<section class="comment-section" v-if="comments.length > 0">

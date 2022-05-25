@@ -1,5 +1,9 @@
 <template>
-	<div class="comment-update" :id="comment.commentNo" style="display: none">
+	<div
+		class="comment-update"
+		:id="updatecomment.commentNo"
+		style="display: none"
+	>
 		<input
 			type="text"
 			id="nickName"
@@ -30,31 +34,38 @@ export default {
 			},
 		};
 	},
+	created() {
+		console.log(this.$props.comment);
+		this.updatecomment.youtubeId = this.$props.comment.youtubeId;
+		this.updatecomment.nickName = this.$props.comment.nickName;
+		this.updatecomment.content = this.$props.comment.content;
+		this.updatecomment.userId = this.$props.comment.userId;
+		this.updatecomment.commentNo = this.$props.comment.commentNo;
+	},
 	methods: {
 		updateComment(payload) {
+			let idx = 0;
+			for (let index = 0; index < this.$store.state.comments.length; index++) {
+				if (
+					this.$store.state.comments[index].commentNo ==
+					this.updatecomment.commentNo
+				) {
+					idx = index;
+				}
+			}
 			let newupdatecomment = {
 				youtubeId: this.updatecomment.youtubeId,
 				nickName: this.updatecomment.nickName,
 				content: this.updatecomment.content,
-				userId: this.$store.state.user.id,
-				commentNo: payload,
+				userId: this.updatecomment.userId,
+				commentNo: this.updatecomment.commentNo,
 			};
-			let idx = 0;
-			for (let index = 0; index < this.$store.state.comments.length; index++) {
-				if (this.$store.state.comments[index].commentNo == payload) {
-					idx = index;
-				}
-			}
 
 			this.$store.dispatch("updateComment", [newupdatecomment, idx]);
 			this.updatecomment.nickName = "";
 			this.updatecomment.content = "";
 			document.getElementById(payload).style.display = "none";
 		},
-	},
-	created() {
-		const pathName = new URL(document.location).pathname.split("/");
-		this.updatecomment.youtubeId = pathName[pathName.length - 1];
 	},
 };
 </script>

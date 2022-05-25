@@ -7,7 +7,7 @@
 				v-model="comment.nickName"
 				placeholder="닉네임"
 			/>
-			<button @click="createComment">등록</button>
+			<button @click="check">등록</button>
 		</div>
 		<b-form-textarea
 			v-model="comment.content"
@@ -27,14 +27,30 @@ export default {
 				nickName: "",
 				content: "",
 				userId: "",
+				subNo: 0,
+				commentNo: 0,
 			},
 		};
 	},
+	props: ["youtubeId", "commentNo"],
 	created() {
-		const pathName = new URL(document.location).pathname.split("/");
-		this.comment.youtubeId = pathName[pathName.length - 1];
+		if (this.$props.youtubeId) {
+			// comment
+			this.comment.youtubeId = this.$props.youtubeId;
+		} else {
+			this.comment.commentNo = this.$props.commentNo;
+		}
+		// const pathName = new URL(document.location).pathname.split("/");
+		// this.comment.youtubeId = pathName[pathName.length - 1];
 	},
 	methods: {
+		check() {
+			if (this.comment.youtubeId) {
+				this.createComment();
+			} else {
+				this.createSubComment();
+			}
+		},
 		createComment() {
 			let newComment = {
 				youtubeId: this.comment.youtubeId,
@@ -44,9 +60,23 @@ export default {
 				commentNo: 0,
 				date: "",
 			};
+			this.$store.dispatch("createComment", newComment);
 			this.comment.nickName = "";
 			this.comment.content = "";
-			this.$store.dispatch("createComment", newComment);
+		},
+		createSubComment() {
+			let newsubcomment = {
+				subNo: 0,
+				commentNo: this.comment.commentNo,
+				nickName: this.comment.nickName,
+				content: this.comment.content,
+				userId: this.$store.state.user.id,
+				date: "",
+			};
+
+			this.$store.dispatch("createSubComment", newsubcomment);
+			this.comment.nickName = "";
+			this.comment.content = "";
 		},
 	},
 };
