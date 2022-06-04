@@ -144,4 +144,17 @@ export default {
 .move2-enter-active {
 	transition: all 0.5s cubic-bezier(0.42, 0, 0.58, 1);
 }
+
+@media screen and (max-width: 768px) {
+	.container {
+		display: flex;
+		flex-direction: column;
+	}
+	.aside-container {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 0;
+	}
+}
 </style>

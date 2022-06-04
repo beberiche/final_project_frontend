@@ -27,4 +27,10 @@ nav {
 	border: 0.7px solid #8b9092;
 	box-shadow: 3px 3px 5px -3px rgba(196, 196, 196, 0.83);
 }
+
+@media screen and (max-width: 768px) {
+	nav {
+		display: none;
+	}
+}
 </style>

@@ -44,4 +44,10 @@ nav a.router-link-exact-active {
 	border-left: 3px solid rgb(44, 62, 80);
 	transition: all 0.3s linear;
 }
+
+@media screen and (max-width: 768px) {
+	nav {
+		min-width: 200px;
+	}
+}
 </style>

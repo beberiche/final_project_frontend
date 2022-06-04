@@ -3,7 +3,9 @@
 		<h6 class="comment-no">
 			번호 : {{ data.subNo ? data.subNo : data.commentNo }}
 		</h6>
-		<h6 class="comment-title">닉네임 : {{ data.nickName }}</h6>
+		<h6 class="comment-title">
+			닉네임 : {{ data.nickName }} [id : {{ data.userId }}]
+		</h6>
 		<h6 class="comment-channel_name">내용 : {{ data.content }}</h6>
 		<div class="comment-date" v-if="data.date">작성날짜 : {{ data.date }}</div>
 	</div>
