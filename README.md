@@ -1,24 +1,7 @@
 # ssafit
 
-## Project setup
-```
-npm install
-```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
 
-### Compiles and minifies for production
-```
-npm run build
-```
 
-### Lints and fixes files
-```
-npm run lint
-```
+https://user-images.githubusercontent.com/71657609/172016434-d46fcd2d-fc22-4812-a4ab-b64fc74842e3.mp4
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
